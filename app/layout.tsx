@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import {Hind} from "next/font/google";
 import "./globals.css";
 
+//components
+import Header from "@/components/Header";
+
 const hind = Hind({
   subsets: ["latin"],
   variable: "--font-hind",
@@ -23,6 +26,7 @@ export default function RootLayout({
       <body
         className={`${hind.variable} antialiased`}
       >
+        <Header />  
         {children}
       </body>
     </html>
