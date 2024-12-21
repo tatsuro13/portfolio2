@@ -22,7 +22,7 @@ const MobileNav: FC = () => {
             <CiMenuFries className="text-[32px] text-accent" />
         </SheetTrigger>
         <SheetContent className="flex flex-col">
-            <SheetTitle>Mobile menu</SheetTitle>
+            <SheetTitle hidden>Mobile menu</SheetTitle>
             <div className="mt-32 mb-32 text-center text-2xl">
             <Link href="/" className="text-4xl">
             <h1>
