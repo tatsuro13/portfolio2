@@ -2,6 +2,7 @@ import Link from "next/link"
 import Nav from "@/components/Nav"
 import { Button } from "./ui/button"
 import { FC } from "react"
+import MobileNav from "./MobileNav"
 
 const Header: FC = () => {
   return (
@@ -23,7 +24,7 @@ const Header: FC = () => {
             
             {/* Mobile nav */}
             <div className="xl:hidden">
-                Mobile nav
+                <MobileNav />
             </div>
 
         </div>
