@@ -4,8 +4,13 @@ import { FC } from 'react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { usePathname } from 'next/navigation';
 
+type PageTransitionProps = {
+    children: React.ReactNode
+}
+
+
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-const PageTransition: FC<any> = ({children}) => {
+const PageTransition: FC<PageTransitionProps> = ({children}) => {
     const pathName = usePathname();
   return (
     <AnimatePresence>
