@@ -1,9 +1,7 @@
-import { FC } from "react"
+import { FC } from "react";
 
 const Work: FC = () => {
-  return (
-    <div>work page</div>
-  )
-}
+  return <div>work page</div>;
+};
 
-export default Work
+export default Work;

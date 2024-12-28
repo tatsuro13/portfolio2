@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import {Hind} from "next/font/google";
+import { Hind } from "next/font/google";
 import "./globals.css";
 
 //components
@@ -9,7 +9,7 @@ import PageTransition from "@/components/PageTransition";
 const hind = Hind({
   subsets: ["latin"],
   variable: "--font-hind",
-  weight: ['400', '500', '600', '700'],
+  weight: ["400", "500", "600", "700"],
 });
 
 export const metadata: Metadata = {
@@ -24,13 +24,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${hind.variable} antialiased`}
-      >
+      <body className={`${hind.variable} antialiased`}>
         <Header />
-        <PageTransition>
-        {children}
-        </PageTransition>
+        <PageTransition>{children}</PageTransition>
       </body>
     </html>
   );

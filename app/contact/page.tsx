@@ -1,9 +1,7 @@
-import { FC } from "react"
+import { FC } from "react";
 
 const Contact: FC = () => {
-  return (
-    <div>contact page</div>
-  )
-}
+  return <div>contact page</div>;
+};
 
-export default Contact
+export default Contact;

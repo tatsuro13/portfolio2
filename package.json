@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "format": "biome format --write",
+    "lint": "biome lint",
+    "check": "biome check"
   },
   "dependencies": {
     "@radix-ui/react-dialog": "^1.1.2",
@@ -27,6 +29,7 @@
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
