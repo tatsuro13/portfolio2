@@ -1,7 +1,11 @@
-import { FC } from "react";
+import type { FC } from "react";
 
 const Services: FC = () => {
-  return <div>services page</div>;
+  return (
+    <section>
+      <div className="container mx-auto"></div>
+    </section>
+  );
 };
 
 export default Services;
