@@ -16,6 +16,7 @@ import { FaHtml5, FaReact } from "react-icons/fa";
 import { SiTypescript } from "react-icons/si";
 import Link from "next/link";
 import Image from "next/image";
+import WorkSliderBtns from "@/components/WorkSliderBtns";
 
 const projects = [
   {
@@ -72,7 +73,10 @@ const Work: FC = () => {
   return (
     <motion.section
       initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
+      animate={{
+        opacity: 1,
+        transition: { duration: 0.5, delay: 0.5, ease: "easeIn" },
+      }}
       className="min-h-[80vh] flex flex-col justify-center py-12 xl:py-0"
     >
       <div className="container mx-auto">
@@ -146,15 +150,26 @@ const Work: FC = () => {
               }
             >
               {projects.map((project, index) => (
-                <SwiperSlide key={index}>
-                  <Image
-                    width={1980}
-                    height={2600}
-                    src={project.image}
-                    alt={project.title}
-                  />
+                <SwiperSlide
+                  key={index}
+                  className="h-[520px] relative group flex items-center justify-center"
+                >
+                  <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
+                  <div className="relative w-full h-full">
+                    <Image
+                      fill
+                      className="object-cover"
+                      src={project.image}
+                      alt={project.title}
+                    />
+                  </div>
                 </SwiperSlide>
               ))}
+              <WorkSliderBtns
+                containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px) xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none]"
+                btnStyles="bg-accent hover:bg-accent-dark text-primary transition-all duration-500 text-2xl w-[44px] h-[44px] flex items-center justify-center"
+                iconsStyles=""
+              />
             </Swiper>
           </div>
         </div>
