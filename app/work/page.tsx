@@ -15,6 +15,7 @@ import {
 import { FaHtml5, FaReact } from "react-icons/fa";
 import { SiTypescript } from "react-icons/si";
 import Link from "next/link";
+import Image from "next/image";
 
 const projects = [
   {
@@ -99,10 +100,10 @@ const Work: FC = () => {
                   <TooltipProvider delayDuration={100}>
                     <Tooltip>
                       <TooltipTrigger>
-                        <button className="flex items-center gap-2 text-white/60 group hover:text-accent transition-all duration-500">
+                        <div className="flex items-center gap-2 text-white/60 group hover:text-accent transition-all duration-500">
                           <span>View Project</span>
                           <BsArrowUpRight />
-                        </button>
+                        </div>
                       </TooltipTrigger>
                       <TooltipContent>
                         <Tooltip>
@@ -116,13 +117,13 @@ const Work: FC = () => {
                   <TooltipProvider delayDuration={100}>
                     <Tooltip>
                       <TooltipTrigger>
-                        <button className="flex items-center gap-2 text-white/60 group hover:text-accent transition-all duration-500">
+                        <div className="flex items-center gap-2 text-white/60 group hover:text-accent transition-all duration-500">
                           <span className="flex items-center gap-2">
                             <BsGithub />
                             View Github repository
                           </span>
                           <BsArrowUpRight />
-                        </button>
+                        </div>
                       </TooltipTrigger>
                       <TooltipContent>
                         <Tooltip>
@@ -135,7 +136,27 @@ const Work: FC = () => {
               </div>
             </div>
           </div>
-          <div className="w-full xl:w-[50%]">slider</div>
+          <div className="w-full xl:w-[50%]">
+            <Swiper
+              spaceBetween={30}
+              slidesPerView={1}
+              className="h-[520px] mb-12"
+              onSlideChange={(swiper) =>
+                setProject(projects[swiper.activeIndex])
+              }
+            >
+              {projects.map((project, index) => (
+                <SwiperSlide key={index}>
+                  <Image
+                    width={1980}
+                    height={2600}
+                    src={project.image}
+                    alt={project.title}
+                  />
+                </SwiperSlide>
+              ))}
+            </Swiper>
+          </div>
         </div>
       </div>
     </motion.section>
