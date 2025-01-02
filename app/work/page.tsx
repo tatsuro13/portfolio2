@@ -44,16 +44,12 @@ const projects = [
   },
   {
     number: 2,
-    category: "Web Application",
+    category: "Web Design",
     title: "Project B",
     description: "This is a project B.",
     live: "https://example.com",
     github: "https://github.com",
     stack: [
-      {
-        name: "React",
-        icon: <FaReact />,
-      },
       {
         name: "TypeScript",
         icon: <SiTypescript />,
