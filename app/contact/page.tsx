@@ -16,6 +16,7 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const info = [
   {
     icon: <FaPhoneAlt />,
