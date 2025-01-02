@@ -6,6 +6,7 @@ import { MdOutlineEmail } from "react-icons/md";
 import Social from "@/components/Social";
 import Photo from "@/components/Photo";
 import Stats from "@/components/Stats";
+import Link from "next/link";
 
 const Home: FC = () => {
   return (
@@ -24,14 +25,16 @@ const Home: FC = () => {
               I strive to incorporate the latest technologies in my development.
             </p>
             <div className="flex flex-col gap-8 items-center xl:flex-row">
-              <Button
-                variant="outline"
-                size="lg"
-                className="uppercase flex items-center gap-2"
-              >
-                <span>hire me</span>
-                <MdOutlineEmail className="text-xl" />
-              </Button>
+              <Link href={"/contact"}>
+                <Button
+                  variant="outline"
+                  size="lg"
+                  className="uppercase flex items-center gap-2"
+                >
+                  <span>hire me</span>
+                  <MdOutlineEmail className="text-xl" />
+                </Button>
+              </Link>
               <div className="mb-8 xl:mb-0">
                 <Social
                   containerStyles="flex gap-6"

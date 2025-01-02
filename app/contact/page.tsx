@@ -16,7 +16,6 @@ import {
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const info = [
   {
     icon: <FaPhoneAlt />,
@@ -47,7 +46,7 @@ const Contact: FC = () => {
     >
       <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row gap-8">
-          <div className="xl:h-[54%] order-2 xl:order-none">
+          <div className="xl:w-[54%] order-2 xl:order-none">
             <form className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-e-xl">
               <h3 className="text-4xl text-accent">{`Let's work together`}</h3>
               <p className="text-white/60">
@@ -86,7 +85,20 @@ const Contact: FC = () => {
             </form>
           </div>
           <div className="flex-1 flex items-center xl:justify-end order-1 xl:order-none mb-8 xl:mb-0">
-            info
+            {/* info */}
+            <ul className="flex flex-col gap-10">
+              {info.map((item, index) => (
+                <li key={index} className="flex gap-6 items-center">
+                  <div className="w-12 h-12 xl:w-16 xl:h-16 flex items-center justify-center rounded-md bg-[#333338] text-accent">
+                    <div className="text-2xl">{item.icon}</div>
+                  </div>
+                  <div className="flex-1">
+                    <p className="text-white/60">{item.title}</p>
+                    <h3 className="text-xl">{item.description}</h3>
+                  </div>
+                </li>
+              ))}
+            </ul>
           </div>
         </div>
       </div>
