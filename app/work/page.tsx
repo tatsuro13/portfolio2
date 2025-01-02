@@ -144,29 +144,28 @@ const Work: FC = () => {
             <Swiper
               spaceBetween={30}
               slidesPerView={1}
-              className="h-[520px] mb-12"
+              className="xl:h-[520px] mb-12"
               onSlideChange={(swiper) =>
                 setProject(projects[swiper.activeIndex])
               }
             >
               {projects.map((project, index) => (
-                <SwiperSlide
-                  key={index}
-                  className="h-[520px] relative group flex items-center justify-center"
-                >
-                  <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
-                  <div className="relative w-full h-full">
-                    <Image
-                      fill
-                      className="object-cover"
-                      src={project.image}
-                      alt={project.title}
-                    />
+                <SwiperSlide key={index} className="w-full">
+                  <div className="h-[460px] relative group flex items-center justify-center bg-white/50">
+                    <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
+                    <div className="relative w-full h-full">
+                      <Image
+                        fill
+                        className="object-cover"
+                        src={project.image}
+                        alt={project.title}
+                      />
+                    </div>
                   </div>
                 </SwiperSlide>
               ))}
               <WorkSliderBtns
-                containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px) xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none]"
+                containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none]"
                 btnStyles="bg-accent hover:bg-accent-dark text-primary transition-all duration-500 text-2xl w-[44px] h-[44px] flex items-center justify-center"
                 iconsStyles=""
               />
