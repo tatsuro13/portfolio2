@@ -1,6 +1,6 @@
 "use client";
 
-import type { FC } from "react";
+import { useEffect, useState, type FC } from "react";
 import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "./ui/sheet";
 import { CiMenuFries } from "react-icons/ci";
 import { usePathname } from "next/navigation";
@@ -16,8 +16,14 @@ const links = [
 
 const MobileNav: FC = () => {
   const pathname = usePathname();
+  const [isOpen, setIsOpen] = useState(false);
+
+  useEffect(() => {
+    setIsOpen(false);
+  }, [pathname]);
+
   return (
-    <Sheet>
+    <Sheet open={isOpen} onOpenChange={setIsOpen}>
       <SheetTrigger className="fixed justify-center items-center top-8 right-4">
         <CiMenuFries className="text-[32px] text-accent" />
       </SheetTrigger>
