@@ -1,6 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useState, type FC } from "react";
+import { useEffect, useState, type FC } from "react";
 
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -17,54 +18,92 @@ import { SiTypescript } from "react-icons/si";
 import Link from "next/link";
 import Image from "next/image";
 import WorkSliderBtns from "@/components/WorkSliderBtns";
+import { client } from "@/libs/microcms";
 
-const projects = [
-  {
-    number: 1,
-    category: "Web Application",
-    title: "Project A",
-    description: "This is a project A.",
-    live: "https://example.com",
-    github: "https://github.com",
-    stack: [
-      {
-        name: "React",
-        icon: <FaReact />,
-      },
-      {
-        name: "TypeScript",
-        icon: <SiTypescript />,
-      },
-      {
-        name: "Html 5",
-        icon: <FaHtml5 />,
-      },
-    ],
-    image: "https://placehold.jp/1980x2600.png",
-  },
-  {
-    number: 2,
-    category: "Web Design",
-    title: "Project B",
-    description: "This is a project B.",
-    live: "https://example.com",
-    github: "https://github.com",
-    stack: [
-      {
-        name: "TypeScript",
-        icon: <SiTypescript />,
-      },
-      {
-        name: "Html 5",
-        icon: <FaHtml5 />,
-      },
-    ],
-    image: "https://placehold.jp/1980x2600.png",
-  },
-];
+// const projects = [
+//   {
+//     number: 1,
+//     category: "Web Application",
+//     title: "Project A",
+//     description: "This is a project A.",
+//     live: "https://example.com",
+//     github: "https://github.com",
+//     stack: [
+//       {
+//         name: "React",
+//         icon: <FaReact />,
+//       },
+//       {
+//         name: "TypeScript",
+//         icon: <SiTypescript />,
+//       },
+//       {
+//         name: "Html 5",
+//         icon: <FaHtml5 />,
+//       },
+//     ],
+//     image: "https://placehold.jp/1980x2600.png",
+//   },
+//   {
+//     number: 2,
+//     category: "Web Design",
+//     title: "Project B",
+//     description: "This is a project B.",
+//     live: "https://example.com",
+//     github: "https://github.com",
+//     stack: [
+//       {
+//         name: "TypeScript",
+//         icon: <SiTypescript />,
+//       },
+//       {
+//         name: "Html 5",
+//         icon: <FaHtml5 />,
+//       },
+//     ],
+//     image: "https://placehold.jp/1980x2600.png",
+//   },
+// ];
+
+// 記事の型定義
+type Props = {
+  id: string;
+  title: string;
+  description: string;
+  thumbnail: {
+    url: string;
+  };
+  stack: string[];
+};
+
+// microCMSから記事を取得
+async function getWorkPosts(): Promise<Props[]> {
+  const data = await client.get({
+    endpoint: "works",
+    queries: {
+      fields: "id,title,description,thumbnail,stack",
+      limit: 100,
+    },
+  });
+  return data.contents;
+}
 
 const Work: FC = () => {
-  const [project, setProject] = useState(projects[0]);
+  const [works, setWorks] = useState<Props[]>([]);
+
+  const [work, setWork] = useState<Props>();
+
+  useEffect(() => {
+    getWorkPosts().then((data) => setWorks(data));
+    setWork(works[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  useEffect(() => {
+    if (works.length > 0) {
+      setWork(works[0]); // worksが変更されたときに最初の要素を設定
+    }
+  }, [works]);
 
   return (
     <motion.section
@@ -80,23 +119,26 @@ const Work: FC = () => {
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
             <div className="flex flex-col gap-8 h-[50%]">
               <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
-                {project.number}
+                {/* //配列のインデックス+1 */}
+                {/* {work.number} */}
+                01
               </div>
               <h2 className="text-5xl font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
-                {project.category}
+                {work?.title}
               </h2>
-              <p className="text-white/60">{project.description}</p>
+              <p className="text-white/60">{work?.description}</p>
               <ul className="flex gap-4">
-                {project.stack.map((item, index) => (
-                  <li key={index} className="text-xl text-accent">
-                    {item.name}
-                    {index < project.stack.length - 1 && ","}
-                  </li>
-                ))}
+                {work &&
+                  work.stack.map((item, index) => (
+                    <li key={index} className="text-xl text-accent">
+                      {item}
+                      {index < work.stack.length - 1 && ","}
+                    </li>
+                  ))}
               </ul>
               <div className="border border-white/20"></div>
-              <div className="flex items-center gap-4">
-                <Link href={project.live}>
+              {/* <div className="flex items-center gap-4">
+                <Link href={work.live}>
                   <TooltipProvider delayDuration={100}>
                     <Tooltip>
                       <TooltipTrigger>
@@ -113,7 +155,7 @@ const Work: FC = () => {
                     </Tooltip>
                   </TooltipProvider>
                 </Link>
-                <Link href={project.github}>
+                <Link href={work.github}>
                   <TooltipProvider delayDuration={100}>
                     <Tooltip>
                       <TooltipTrigger>
@@ -133,7 +175,7 @@ const Work: FC = () => {
                     </Tooltip>
                   </TooltipProvider>
                 </Link>
-              </div>
+              </div> */}
             </div>
           </div>
           <div className="w-full xl:w-[50%]">
@@ -141,20 +183,18 @@ const Work: FC = () => {
               spaceBetween={30}
               slidesPerView={1}
               className="xl:h-[520px] mb-12"
-              onSlideChange={(swiper) =>
-                setProject(projects[swiper.activeIndex])
-              }
+              onSlideChange={(swiper) => setWork(works[swiper.activeIndex])}
             >
-              {projects.map((project, index) => (
-                <SwiperSlide key={index} className="w-full">
+              {works.map((work) => (
+                <SwiperSlide key={work.id} className="w-full">
                   <div className="h-[460px] relative group flex items-center justify-center bg-white/50">
                     <div className="absolute top-0 bottom-0 w-full h-full bg-black/10 z-10"></div>
                     <div className="relative w-full h-full">
                       <Image
                         fill
-                        className="object-cover"
-                        src={project.image}
-                        alt={project.title}
+                        className="object-cover object-top"
+                        src={work.thumbnail.url}
+                        alt={work.title}
                       />
                     </div>
                   </div>
