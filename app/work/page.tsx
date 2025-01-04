@@ -20,51 +20,6 @@ import Image from "next/image";
 import WorkSliderBtns from "@/components/WorkSliderBtns";
 import { client } from "@/libs/microcms";
 
-// const projects = [
-//   {
-//     number: 1,
-//     category: "Web Application",
-//     title: "Project A",
-//     description: "This is a project A.",
-//     live: "https://example.com",
-//     github: "https://github.com",
-//     stack: [
-//       {
-//         name: "React",
-//         icon: <FaReact />,
-//       },
-//       {
-//         name: "TypeScript",
-//         icon: <SiTypescript />,
-//       },
-//       {
-//         name: "Html 5",
-//         icon: <FaHtml5 />,
-//       },
-//     ],
-//     image: "https://placehold.jp/1980x2600.png",
-//   },
-//   {
-//     number: 2,
-//     category: "Web Design",
-//     title: "Project B",
-//     description: "This is a project B.",
-//     live: "https://example.com",
-//     github: "https://github.com",
-//     stack: [
-//       {
-//         name: "TypeScript",
-//         icon: <SiTypescript />,
-//       },
-//       {
-//         name: "Html 5",
-//         icon: <FaHtml5 />,
-//       },
-//     ],
-//     image: "https://placehold.jp/1980x2600.png",
-//   },
-// ];
-
 // 記事の型定義
 type Props = {
   id: string;
@@ -90,8 +45,8 @@ async function getWorkPosts(): Promise<Props[]> {
 
 const Work: FC = () => {
   const [works, setWorks] = useState<Props[]>([]);
-
   const [work, setWork] = useState<Props>();
+  const [activeIndex, setActiveIndex] = useState(0);
 
   useEffect(() => {
     getWorkPosts().then((data) => setWorks(data));
@@ -119,9 +74,7 @@ const Work: FC = () => {
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
             <div className="flex flex-col gap-8 h-[50%]">
               <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
-                {/* //配列のインデックス+1 */}
-                {/* {work.number} */}
-                01
+                {String(activeIndex + 1).padStart(2, "0")}
               </div>
               <h2 className="text-5xl font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
                 {work?.title}
@@ -183,7 +136,10 @@ const Work: FC = () => {
               spaceBetween={30}
               slidesPerView={1}
               className="xl:h-[520px] mb-12"
-              onSlideChange={(swiper) => setWork(works[swiper.activeIndex])}
+              onSlideChange={(swiper) => {
+                setActiveIndex(swiper.activeIndex);
+                setWork(works[swiper.activeIndex]);
+              }}
             >
               {works.map((work) => (
                 <SwiperSlide key={work.id} className="w-full">
