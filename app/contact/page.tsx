@@ -20,7 +20,7 @@ const info = [
   {
     icon: <FaPhoneAlt />,
     title: "Phone",
-    description: "+123 456 7890",
+    description: "+*** *** ****",
   },
   {
     icon: <FaEnvelope />,
@@ -30,7 +30,7 @@ const info = [
   {
     icon: <FaMapMarker />,
     title: "Address",
-    description: "1234 Street Name, City Name, United States",
+    description: "Chiba, Japan",
   },
 ];
 
@@ -50,8 +50,10 @@ const Contact: FC = () => {
             <form className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-e-xl">
               <h3 className="text-4xl text-accent">{`Let's work together`}</h3>
               <p className="text-white/60">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Doneceget nunc nec nulla facilisis.
+                I&apos;m always open to discussing product design work or
+                creative partnerships.
+                <br />
+                何かごようの際はお気軽にお問い合わせください。
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <Input type="firstname" placeholder="Firstname" />
