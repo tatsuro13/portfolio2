@@ -40,11 +40,18 @@ const Home: FC = () => {
                 speed={30}
               />
             </h1>
-            <p className="max-w-[500px] mb-9 text-white/80">
+            <p className="max-w-[500px] mb-6 text-white/80">
               I mainly focus on front-end development with an emphasis on UI/UX.
               I strive to incorporate the latest technologies in my development.
             </p>
-            <div className="flex flex-col gap-8 items-center xl:flex-row">
+            <hr className="my-2 max-w-[500px]" />
+            <p className="max-w-[500px] mb-9 text-white/80">
+              SaaS企業でグロースエンジニアというスタイルで働いております。
+              フロントエンドエンジニア、バックエンド（Node.js）
+              API設計から実装してフロントでHooksなどで呼び出したもの操作や、
+              クローリング、バッチ処理実装なども行っています。
+            </p>
+            <div className="my-4 flex flex-col gap-8 items-center xl:flex-row">
               <Link href={"/contact"}>
                 <Button
                   variant="outline"
