@@ -31,7 +31,7 @@ const Photo: FC = () => {
           className="w-[298px] h-[298px] xl:w-[498px] xl:h-[498px]"
         >
           <Image
-            src={"/assets/photo.png"}
+            src={"/assets/hotdog.png"}
             alt=""
             priority
             quality={100}
@@ -39,12 +39,12 @@ const Photo: FC = () => {
             className="object-contain"
           />
           <motion.svg
-            className="w-[300px] h-[300px] xl:w-[500px] xl:h-[500px] absolute top-0 left-0"
+            className="min-w-full h-auto xl:w-[500px] xl:h-[500px] absolute top-0 left-0"
             xmlns={"http://www.w3.org/2000/svg"}
             viewBox={"0 0 500 500"}
             fill="transparent"
           >
-            <motion.circle
+            {/* <motion.circle
               cx={250}
               cy={250}
               r={250}
@@ -61,7 +61,7 @@ const Photo: FC = () => {
                 repeat: Infinity,
                 repeatType: "reverse",
               }}
-            />
+            /> */}
           </motion.svg>
         </motion.div>
       </motion.div>
