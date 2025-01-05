@@ -80,7 +80,7 @@ const Work: FC = () => {
                 {work?.title}
               </h2>
               <p className="text-white/60">{work?.description}</p>
-              <ul className="flex gap-4">
+              <ul className="flex flex-wrap gap-4">
                 {work &&
                   work.stack.map((item, index) => (
                     <li key={index} className="text-xl text-accent">
