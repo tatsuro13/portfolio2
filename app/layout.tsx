@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { GoogleAnalytics } from "@next/third-parties/google";
 import { Hind } from "next/font/google";
 import "./globals.css";
 
@@ -29,6 +30,7 @@ export default function RootLayout({
         <Header />
         <PageTransition>{children}</PageTransition>
       </body>
+      <GoogleAnalytics gaId={process.env.GAID || "default-ga-id"} />
     </html>
   );
 }
