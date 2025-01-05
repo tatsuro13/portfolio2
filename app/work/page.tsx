@@ -76,7 +76,7 @@ const Work: FC = () => {
               <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
                 {String(activeIndex + 1).padStart(2, "0")}
               </div>
-              <h2 className="text-5xl font-bold leading-none text-white group-hover:text-accent transition-all duration-500 capitalize">
+              <h2 className="text-5xl font-bold leading-tight text-white group-hover:text-accent transition-all duration-500 capitalize">
                 {work?.title}
               </h2>
               <p className="text-white/60">{work?.description}</p>
