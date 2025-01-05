@@ -142,7 +142,7 @@ const Resume: FC = () => {
                     {experience.items.map((item, index) => (
                       <li
                         key={index}
-                        className="flex flex-col gap-1 text-white/80 h-[184px] py-6 px-10 rounded-xl bg-[#27272c] justify-center
+                        className="flex flex-col gap-1 text-white/80 h-[200px] py-6 px-10 rounded-xl bg-[#27272c] justify-center
                         items-center lg:items-start"
                       >
                         <p className="text-accent">{item.period}</p>
