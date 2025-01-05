@@ -20,7 +20,7 @@ const info = [
   {
     icon: <FaPhoneAlt />,
     title: "Phone",
-    description: "+*** *** ****",
+    description: "+000 000 0000",
   },
   {
     icon: <FaEnvelope />,
@@ -86,7 +86,7 @@ const Contact: FC = () => {
               </Button>
             </form>
           </div>
-          <div className="flex-1 flex items-center xl:justify-end order-1 xl:order-none mb-8 xl:mb-0">
+          <div className="flex-1 flex items-center xl:justify-center order-1 xl:order-none mb-8 xl:mb-0">
             {/* info */}
             <ul className="flex flex-col gap-10">
               {info.map((item, index) => (
