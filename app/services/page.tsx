@@ -10,29 +10,37 @@ const services = [
     num: "01",
     title: "Web Development",
     description:
-      "I can help you build a website that is fast, secure, and easy to use.",
-    href: "/web-development",
+      "フロントエンドをメインで行っています。TypeScript, React, Next.js, Tailwind CSS, Firebase, Vercel などを使っています。",
+    descriptionEn:
+      "I mainly do front-end development. I use TypeScript, React, Next.js, Tailwind CSS, Firebase, Vercel, etc.",
+    href: "#",
   },
   {
     num: "02",
     title: "UI/UX Design",
     description:
-      "I can help you design a website that is fast, secure, and easy to use.",
-    href: "/ui-ux-design",
+      "もともとWebデザイナーとしてキャリアをスタートしました。現在はFigmaを使ってデザインを行っています。",
+    descriptionEn:
+      "I started my career as a web designer. I currently design using Figma.",
+    href: "#",
   },
   {
     num: "03",
     title: "Web Design",
     description:
-      "I can help you design a website that is fast, secure, and easy to use.",
-    href: "/web-design",
+      "現在はFigmaをメインですが、過去にはAdobe XD, Photoshop, Illustrator などを使ってデザインを行っていました。",
+    descriptionEn:
+      "I currently use Figma, but in the past I designed using Adobe XD, Photoshop, Illustrator, etc.",
+    href: "#",
   },
   {
     num: "04",
-    title: "Mobile Design",
+    title: "Project Management",
     description:
-      "I can help you design a mobile app that is fast, secure, and easy to use.",
-    href: "/mobile-design",
+      "グロースエンジニアとして、プロジェクトマネジメントも行っています。Notion, Slack, GitHub などを使っています。",
+    descriptionEn:
+      "As a growth engineer, I also do project management. I use Notion, Slack, GitHub, etc.",
+    href: "#",
   },
 ];
 
@@ -71,6 +79,7 @@ const Services: FC = () => {
               <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
                 {service.title}
               </h2>
+              <p className="text-white/60">{service.descriptionEn}</p>
               <p className="text-white/60">{service.description}</p>
               <div className="border-b border-white/20 w-full"></div>
             </div>
