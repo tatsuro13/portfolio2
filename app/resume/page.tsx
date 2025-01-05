@@ -35,12 +35,14 @@ import { ScrollArea } from "@/components/ui/scroll-area";
 const about = {
   title: "About Me",
   description:
-    "I am a web application developer with a focus on front-end development. I strive to incorporate the latest technologies in my development. I have experience with HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind CSS, Figma, and Node.js.",
+    "もともとWebデザイナーとしてキャリアをスタートしました。現在はフロントエンドをメインにUI/UXを考えたデザインエンジニアとして活動しています。",
+  descriptionEn:
+    "I started my career as a web designer. I am currently working as a design engineer who mainly focuses on front-end and thinks about UI/UX.",
   info: [
     { fieldName: "Name", value: "Sixth Project" },
     { fieldName: "Experience", value: "13+ Years" },
     { fieldName: "Nationality", value: "Japan" },
-    { fieldName: "Email", value: "*****@example.com" },
+    // { fieldName: "Email", value: "*****@example.com" },
     { fieldName: "Language", value: "Japanese, English" },
   ],
 };
@@ -50,27 +52,30 @@ const experience = {
   icon: "",
   title: "My experience",
   description:
-    "I have experience with HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind CSS, Figma, and Node.js.",
+    "デザイン業務からスタートし、Web制作会社での経験を経て、現在はSaaSを開発する会社でフロントエンドエンジニアとして活動しています。",
+  descriptionEn:
+    "I started with design work, went through experience at a web production company, and am now working as a front-end engineer at a company that develops",
   items: [
     {
-      company: "Company A",
-      position: "Full Stack Developer (mainly Front-end Developer)",
+      company: "Creates SaaS",
+      position:
+        "Full Stack Developer (mainly Front-end Developer, UI/UX Designer, Project Manager)",
       period: "2022 - Present",
     },
     {
-      company: "Company B",
+      company: "Undertakes development projects",
       position: "Front-end Developer",
-      period: "2019 - 2021",
+      period: "2021 - 2022",
     },
     {
-      company: "Company C",
-      position: "Web Designer",
-      period: "2016 - 2018",
+      company: "Website development company",
+      position: "Web Designer, Front-end Developer, Project Manager",
+      period: "2012 - 2021",
     },
     {
-      company: "Company D",
-      position: "Web Designer",
-      period: "2013 - 2015",
+      company: "Website development company",
+      position: "Web Designer, html coder, director",
+      period: "2013 - 2012",
     },
   ],
 };
@@ -79,7 +84,9 @@ const experience = {
 const skills = {
   title: "My skills",
   description:
-    "I have experience with HTML, CSS, JavaScript, TypeScript, React, Next.js, Tailwind CSS, Figma, and Node.js.",
+    "illustratorやphotoshopでのデザインから現在はFigmaを用いたUI/UXデザイン、フロントエンド開発をメインにやNode.jsを用いたAPIなどの実装など幅広く行っています。",
+  descriptionEn:
+    "From design with illustrator and photoshop to UI/UX design using Figma, I am mainly engaged in front-end development and implement APIs using Node.js.",
   items: [
     { name: "JavaScript", icon: <FaJs /> },
     { name: "TypeScript", icon: <SiTypescript /> },
@@ -125,6 +132,9 @@ const Resume: FC = () => {
               <div className="flex flex-col gap-8 text-center xl:text-left">
                 <h3 className="text-4xl font-bold">{experience.title}</h3>
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                  {experience.descriptionEn}
+                </p>
+                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {experience.description}
                 </p>
                 <ScrollArea className="h-[400px]">
@@ -153,6 +163,9 @@ const Resume: FC = () => {
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-8 text-center xl:text-left">
                   <h3 className="text-4xl font-bold">{skills.title}</h3>
+                  <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                    {skills.descriptionEn}
+                  </p>
                   <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                     {skills.description}
                   </p>
@@ -185,6 +198,9 @@ const Resume: FC = () => {
             >
               <div className="flex flex-col gap-8">
                 <h3 className="text-4xl font-bold">{about.title}</h3>
+                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
+                  {about.descriptionEn}
+                </p>
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {about.description}
                 </p>
