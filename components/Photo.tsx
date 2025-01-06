@@ -48,7 +48,7 @@ const Photo: FC = () => {
               cx={250}
               cy={250}
               r={250}
-              stroke={"#00ff99"}
+              stroke={"#ff621f"}
               strokeLinecap={"round"}
               strokeLinejoin={"round"}
               initial={{ strokeDasharray: "24 10 0 0" }}

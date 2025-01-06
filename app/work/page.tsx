@@ -74,7 +74,7 @@ const Work: FC = () => {
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
             <div className="flex flex-col gap-8 h-[50%]">
               <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
-                {String(activeIndex + 1).padStart(2, "0")}
+                #{String(activeIndex + 1).padStart(2, "0")}
               </div>
               <h2 className="text-5xl font-bold leading-tight text-white group-hover:text-accent transition-all duration-500 capitalize">
                 {work?.title}

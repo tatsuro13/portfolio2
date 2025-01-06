@@ -24,10 +24,10 @@ export default {
 	},
   	extend: {
   		colors: {
-  			primary: '#1c1c22',
+  			primary: '#000',
   			secondary: '#f8f8f8',
   			accent: {
-				DEFAULT:'#00ff99',
+				DEFAULT:'#ff621f',
 				hover:'#00e187'
 			}
   		},
