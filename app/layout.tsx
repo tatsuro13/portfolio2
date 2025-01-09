@@ -1,4 +1,4 @@
-// import type { Metadata } from "next";
+import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
 import { Hind } from "next/font/google";
 import "./globals.css";
@@ -13,11 +13,11 @@ const hind = Hind({
   weight: ["400", "500", "600", "700"],
 });
 
-// export const metadata: Metadata = {
-//   title: "Sixth Project Portfolio",
-//   description:
-//     "I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development.",
-// };
+export const metadata: Metadata = {
+  title: "Sixth Project Portfolio",
+  description:
+    "I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development.",
+};
 
 export default function RootLayout({
   children,
