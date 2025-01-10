@@ -44,6 +44,11 @@ const Contact: FC = () => {
       }}
       className="py-6"
     >
+      <title>Contact | Sixth Project Portfolio</title>
+      <meta
+        name="description"
+        content="I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development."
+      />
       <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row gap-8">
           <div className="xl:w-[54%] order-2 xl:order-none">

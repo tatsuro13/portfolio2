@@ -116,6 +116,11 @@ const Resume: FC = () => {
       }}
       className="min-h-[80vh] flex items-center justify-center py-12 xl:py-0"
     >
+      <title>Resume | Sixth Project Portfolio</title>
+      <meta
+        name="description"
+        content="I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development."
+      />
       <div className="container mx-auto">
         <Tabs
           defaultValue="experience"

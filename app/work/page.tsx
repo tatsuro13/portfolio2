@@ -69,6 +69,11 @@ const Work: FC = () => {
       }}
       className="min-h-[80vh] flex flex-col justify-center py-12 xl:py-0"
     >
+      <title>Works | Sixth Project Portfolio</title>
+      <meta
+        name="description"
+        content="I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development."
+      />
       <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row xl:gap-8">
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">

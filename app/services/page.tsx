@@ -47,6 +47,11 @@ const services = [
 const Services: FC = () => {
   return (
     <section>
+      <title>Services | Sixth Project Portfolio</title>
+      <meta
+        name="description"
+        content="I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development."
+      />
       <div className="container mx-auto">
         <motion.div
           initial={{ opacity: 0 }}
