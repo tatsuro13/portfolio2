@@ -1,8 +1,8 @@
-import Link from "next/link";
 import Nav from "@/components/Nav";
-import { Button } from "./ui/button";
+import Link from "next/link";
 import type { FC } from "react";
 import MobileNav from "./MobileNav";
+import { Button } from "./ui/button";
 
 const Header: FC = () => {
   return (
@@ -18,7 +18,7 @@ const Header: FC = () => {
         <div className="hidden xl:flex items-center gap-8">
           <Nav />
           <Link href={"/contact"}>
-            <Button>Hire me</Button>
+            <Button>Discuss a project</Button>
           </Link>
         </div>
 

@@ -1,24 +1,21 @@
-"use client";
-
 import type { FC } from "react";
-import CountUp from "react-countup";
 
 const stats = [
   {
-    title: "Projects completed",
-    num: 32,
+    title: "Years in web and product development",
+    value: "14+",
   },
   {
-    title: "Technology mastered",
-    num: 6,
+    title: "Years building B2B SaaS products",
+    value: "4+",
   },
   {
-    title: "Years of Experience",
-    num: 14,
+    title: "Annual recurring cost reduction",
+    value: "JPY 8.4M",
   },
   {
-    title: "Code Commits",
-    num: 500,
+    title: "Selected projects",
+    value: "34",
   },
 ];
 
@@ -33,12 +30,9 @@ const Stats: FC = () => {
                 key={index}
                 className="flex flex-1 gap-4 justify-center items-center xl:justify-start"
               >
-                <CountUp
-                  end={item.num}
-                  duration={5}
-                  delay={2}
-                  className="text-4xl xl:text-6xl font-extrabold"
-                />
+                <strong className="whitespace-nowrap text-4xl xl:text-6xl font-extrabold">
+                  {item.value}
+                </strong>
                 <p
                   className={`${item.title.length < 15 ? "max-w-[100px]" : "max-w-[150px]"} leading-snug text-white/80`}
                 >

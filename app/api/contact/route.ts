@@ -9,7 +9,7 @@ export async function POST(request: Request) {
     // バリデーション
     if (!firstName || !email || !message) {
       return NextResponse.json(
-        { error: "必須項目が入力されていません" },
+        { error: "Name, email, and message are required." },
         { status: 400 },
       );
     }
@@ -19,9 +19,9 @@ export async function POST(request: Request) {
     const emailPass = process.env.EMAIL_PASS;
 
     if (!emailUser || !emailPass) {
-      console.error("環境変数が設定されていません:", { emailUser, emailPass });
+      console.error("Email server configuration is incomplete.");
       return NextResponse.json(
-        { error: "メールサーバーの設定が不完全です" },
+        { error: "The email service is temporarily unavailable." },
         { status: 500 },
       );
     }
@@ -44,23 +44,23 @@ export async function POST(request: Request) {
     const mailOptions = {
       from: emailUser,
       to: emailUser,
-      subject: `ポートフォリオサイトからのお問い合わせ: ${service || "未選択"}`,
+      subject: `Portfolio inquiry: ${service || "Not selected"}`,
       text: `
-名前: ${firstName} ${lastName || ""}
-メールアドレス: ${email}
-電話番号: ${phone || "未入力"}
-サービス: ${service || "未選択"}
-メッセージ:
+Name: ${firstName} ${lastName || ""}
+Email: ${email}
+Phone: ${phone || "Not provided"}
+Service: ${service || "Not selected"}
+Message:
 ${message}
       `,
       html: `
 <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto;">
-  <h2 style="color: #333;">ポートフォリオサイトからのお問い合わせ</h2>
-  <p><strong>サービス:</strong> ${service || "未選択"}</p>
-  <p><strong>名前:</strong> ${firstName} ${lastName || ""}</p>
-  <p><strong>メールアドレス:</strong> ${email}</p>
-  <p><strong>電話番号:</strong> ${phone || "未入力"}</p>
-  <h3 style="margin-top: 20px;">メッセージ:</h3>
+  <h2 style="color: #333;">Portfolio inquiry</h2>
+  <p><strong>Service:</strong> ${service || "Not selected"}</p>
+  <p><strong>Name:</strong> ${firstName} ${lastName || ""}</p>
+  <p><strong>Email:</strong> ${email}</p>
+  <p><strong>Phone:</strong> ${phone || "Not provided"}</p>
+  <h3 style="margin-top: 20px;">Message:</h3>
   <p style="white-space: pre-line;">${message}</p>
 </div>
       `,
@@ -69,24 +69,24 @@ ${message}
     // メール送信
     try {
       const info = await transporter.sendMail(mailOptions);
-      console.log("メール送信成功:", info.messageId);
+      console.log("Email sent:", info.messageId);
       return NextResponse.json({ success: true, messageId: info.messageId });
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
     } catch (sendError: any) {
-      console.error("メール送信中のエラー:", sendError);
+      console.error("Email delivery error:", sendError);
       return NextResponse.json(
         {
-          error: `メール送信に失敗しました: ${sendError.message || JSON.stringify(sendError)}`,
+          error: `Your message could not be sent: ${sendError.message || JSON.stringify(sendError)}`,
         },
         { status: 500 },
       );
     }
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
-    console.error("APIエラー:", error);
+    console.error("Contact API error:", error);
     return NextResponse.json(
       {
-        error: `メール送信に失敗しました: ${error.message || JSON.stringify(error)}`,
+        error: `Your message could not be sent: ${error.message || JSON.stringify(error)}`,
       },
       { status: 500 },
     );

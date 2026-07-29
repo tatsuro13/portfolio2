@@ -1,24 +1,24 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 "use client";
 
-import { useEffect, useState, type FC } from "react";
+import { type FC, useEffect, useState } from "react";
 
 import { motion } from "framer-motion";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { BsArrowUpRight, BsGithub } from "react-icons/bs";
+import WorkSliderBtns from "@/components/WorkSliderBtns";
 import {
   Tooltip,
   TooltipContent,
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
+import { client } from "@/libs/microcms";
+import Image from "next/image";
+import Link from "next/link";
+import { BsArrowUpRight, BsGithub } from "react-icons/bs";
 import { FaHtml5, FaReact } from "react-icons/fa";
 import { SiTypescript } from "react-icons/si";
-import Link from "next/link";
-import Image from "next/image";
-import WorkSliderBtns from "@/components/WorkSliderBtns";
-import { client } from "@/libs/microcms";
 
 // 記事の型定義
 type Props = {
@@ -72,12 +72,15 @@ const Work: FC = () => {
       <title>Works | Sixth Project Portfolio</title>
       <meta
         name="description"
-        content="I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development."
+        content="Selected work across B2B SaaS product engineering, TypeScript development, product design, and applied AI automation."
       />
       <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row xl:gap-8">
           <div className="w-full xl:w-[50%] xl:h-[460px] flex flex-col xl:justify-between order-2 xl:order-none">
             <div className="flex flex-col gap-8 h-[50%]">
+              <span className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
+                Selected work
+              </span>
               <div className="text-8xl leading-none font-extrabold text-transparent text-outline">
                 #{String(activeIndex + 1).padStart(2, "0")}
               </div>

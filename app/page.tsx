@@ -1,15 +1,13 @@
-"use client";
-
+import Link from "next/link";
 import type { FC } from "react";
-import { TypeAnimation } from "react-type-animation";
+import { BsArrowUpRight } from "react-icons/bs";
 import { MdOutlineEmail } from "react-icons/md";
 
-//components
-import { Button } from "@/components/ui/button";
-import Social from "@/components/Social";
+import HeroIdentity from "@/components/HeroIdentity";
 import Photo from "@/components/Photo";
+import Social from "@/components/Social";
 import Stats from "@/components/Stats";
-import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const Home: FC = () => {
   return (
@@ -17,52 +15,44 @@ const Home: FC = () => {
       <div className="container mx-auto h-full">
         <div className="flex flex-col xl:flex-row justify-between items-center xl:pt-8 xl:pb-24">
           <div className="text-center xl:text-left order-2 xl:order-none">
-            <span className="text-xl">Web Application Developer</span>
-            <h1 className="h1 text-accent">
-              {`Hello I'm`}
+            <HeroIdentity />
+            <h1 className="h1 mt-4 text-white">
+              Building B2B SaaS
               <br />
-              <TypeAnimation
-                className="text-white"
-                sequence={[
-                  "Sixth Project",
-                  1000,
-                  "Web Developer",
-                  1000,
-                  "Frontend Developer",
-                  1000,
-                  "UI/UX Designer",
-                  1000,
-                  "Web Designer",
-                  1000,
-                ]}
-                wrapper="span"
-                repeat={Infinity}
-                speed={30}
-              />
+              <span className="text-accent">and applied AI that ships.</span>
             </h1>
-            <p className="max-w-[500px] mb-6 text-white/80">
-              I mainly focus on front-end development with an emphasis on UI/UX.
-              I strive to incorporate the latest technologies in my development.
+            <p className="max-w-[620px] mt-6 mb-6 text-lg text-white/70">
+              I build and operate customer-facing SaaS products, including
+              website builders and booking platforms, and turn manual operations
+              into reliable AI-powered workflows.
             </p>
-            <hr className="my-2 max-w-[500px]" />
-            <p className="max-w-[500px] mb-9 text-white/80">
-              SaaS企業でグロースエンジニアというスタイルで働いております。
-              フロントエンドエンジニア、バックエンド（Node.js）
-              API設計から実装してフロントでHooksなどで呼び出したもの操作や、
-              クローリング、バッチ処理実装なども行っています。
-            </p>
-            <div className="my-4 flex flex-col gap-8 items-center xl:flex-row">
-              <Link href={"/contact"}>
+            <div className="max-w-[620px] mb-8 border-y border-white/15 py-5 text-left sm:flex sm:items-center sm:gap-6">
+              <strong className="block whitespace-nowrap text-3xl font-semibold text-white">
+                JPY 8.4M
+              </strong>
+              <span className="mt-1 block text-sm leading-relaxed text-white/60 sm:mt-0">
+                Annual recurring outsourcing cost reduction delivered by an AI
+                automation project I led from planning through rollout.
+              </span>
+            </div>
+            <div className="my-4 flex flex-col gap-5 items-center sm:flex-row xl:justify-start">
+              <Link href="/work">
+                <Button size="lg" className="flex items-center gap-2 uppercase">
+                  <span>View selected work</span>
+                  <BsArrowUpRight className="text-xl" />
+                </Button>
+              </Link>
+              <Link href="/contact">
                 <Button
                   variant="outline"
                   size="lg"
                   className="uppercase flex items-center gap-2"
                 >
-                  <span>hire me</span>
+                  <span>Discuss a project</span>
                   <MdOutlineEmail className="text-xl" />
                 </Button>
               </Link>
-              <div className="mb-8 xl:mb-0">
+              <div className="sm:ml-2 mb-8 sm:mb-0">
                 <Social
                   containerStyles="flex gap-6"
                   iconStyles="w-9 h-9 border border-accent rounded-full flex justify-center items-center text-accent text-base hover:bg-accent hover:text-primary hover:transition-all duration-500"

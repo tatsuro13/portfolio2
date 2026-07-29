@@ -1,5 +1,5 @@
-import type { Metadata } from "next";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import type { Metadata } from "next";
 import { Hind } from "next/font/google";
 import "./globals.css";
 
@@ -14,9 +14,37 @@ const hind = Hind({
 });
 
 export const metadata: Metadata = {
-  title: "Sixth Project Portfolio",
+  metadataBase: new URL("https://www.sixth-project.com"),
+  title: {
+    default: "Senior Product Engineer | Sixth Project",
+    template: "%s | Sixth Project",
+  },
   description:
-    "I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development.",
+    "Senior product engineer building B2B SaaS and applied AI workflows with TypeScript, React, and Node.js. From product discovery through production rollout.",
+  keywords: [
+    "Senior Product Engineer",
+    "B2B SaaS",
+    "Applied AI",
+    "TypeScript",
+    "React",
+    "Node.js",
+    "AI automation",
+  ],
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://www.sixth-project.com",
+    siteName: "Sixth Project",
+    title: "Senior Product Engineer | Sixth Project",
+    description:
+      "Building B2B SaaS products and applied AI workflows from discovery through production rollout.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Senior Product Engineer | Sixth Project",
+    description:
+      "Building B2B SaaS products and applied AI workflows from discovery through production rollout.",
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +53,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="ja">
+    <html lang="en">
       <body className={`${hind.variable} antialiased`}>
         <Header />
         <PageTransition>{children}</PageTransition>

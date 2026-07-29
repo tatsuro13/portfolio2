@@ -1,26 +1,6 @@
 "use client";
 
-import type { FC } from "react";
-import {
-  FaHtml5,
-  FaCss3,
-  FaJs,
-  FaReact,
-  FaFigma,
-  FaNodeJs,
-} from "react-icons/fa";
-import {
-  SiTypescript,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiAdobeillustrator,
-  SiAdobephotoshop,
-  SiAwslambda,
-  SiMysql,
-  SiRuby,
-  SiRubyonrails,
-} from "react-icons/si";
-import { motion } from "framer-motion";
+import { ScrollArea } from "@/components/ui/scroll-area";
 //components
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import {
@@ -29,68 +9,91 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
-import { ScrollArea } from "@/components/ui/scroll-area";
+import { motion } from "framer-motion";
+import type { FC } from "react";
+import {
+  FaCss3,
+  FaFigma,
+  FaHtml5,
+  FaJs,
+  FaNodeJs,
+  FaReact,
+} from "react-icons/fa";
+import {
+  SiAdobeillustrator,
+  SiAdobephotoshop,
+  SiAwslambda,
+  SiMysql,
+  SiNextdotjs,
+  SiOpenai,
+  SiRuby,
+  SiRubyonrails,
+  SiTailwindcss,
+  SiTypescript,
+} from "react-icons/si";
 
 //about me
 const about = {
-  title: "About Me",
+  title: "About",
   description:
-    "もともとWebデザイナーとしてキャリアをスタートしました。現在はフロントエンドをメインにUI/UXを考えたデザインエンジニアとして活動しています。",
-  descriptionEn:
-    "I started my career as a web designer. I am currently working as a design engineer who mainly focuses on front-end and thinks about UI/UX.",
+    "I am a Japan-based senior product engineer with a background in web design and more than 14 years across design, front-end development, full-stack product engineering, and technical leadership. I build software close to real operations: B2B SaaS features, TypeScript backends, integrations, and applied AI workflows.",
   info: [
-    { fieldName: "Name", value: "Sixth Project" },
-    { fieldName: "Experience", value: "13+ Years" },
-    { fieldName: "Nationality", value: "Japan" },
-    // { fieldName: "Email", value: "*****@example.com" },
-    { fieldName: "Language", value: "Japanese, English" },
+    { fieldName: "Focus", value: "B2B SaaS & Applied AI" },
+    { fieldName: "Experience", value: "14+ Years" },
+    { fieldName: "Based in", value: "Chiba, Japan" },
+    { fieldName: "Working style", value: "Remote · Async-first" },
+    { fieldName: "Languages", value: "Japanese · Written English" },
   ],
 };
 
 //experience
 const experience = {
   icon: "",
-  title: "My experience",
+  title: "Experience",
   description:
-    "デザイン業務からスタートし、Web制作会社での経験を経て、現在はSaaSを開発する会社でフロントエンドエンジニアとして活動しています。",
-  descriptionEn:
-    "I started with design work, went through experience at a web production company, and am now working as a front-end engineer at a company that develops",
+    "My career has moved from design and front-end development into end-to-end product engineering. Today I build core SaaS products and lead applied AI initiatives that reach production and measurable business outcomes.",
   items: [
     {
-      company: "Creates SaaS",
-      position:
-        "Full Stack Developer (mainly Front-end Developer, UI/UX Designer, Project Manager)",
+      company: "B2B SaaS Company",
+      position: "Product Engineer / Project Lead",
       period: "2022 - Present",
+      summary:
+        "Builds and operates a website builder and booking platform. Leads AI automation from requirements and architecture through implementation, deployment, and operational adoption.",
     },
     {
-      company: "Undertakes development projects",
-      position: "Front-end Developer",
+      company: "Software Development Company",
+      position: "Front-end Engineer",
       period: "2021 - 2022",
+      summary:
+        "Delivered maintainable front-end features for client development projects and collaborated across design and engineering.",
     },
     {
-      company: "Website development company",
-      position: "Web Designer, Front-end Developer, Project Manager",
+      company: "Web Production Company",
+      position: "Web Designer / Front-end Engineer / Project Manager",
       period: "2012 - 2021",
+      summary:
+        "Designed and delivered websites while coordinating projects from client requirements through production release.",
     },
     {
-      company: "Website development company",
-      position: "Web Designer, html coder, director",
-      period: "2013 - 2012",
+      company: "Web Production Company",
+      position: "Web Designer / HTML Developer / Web Director",
+      period: "Earlier Career",
+      summary:
+        "Built the foundation of a multidisciplinary practice spanning visual design, implementation, and delivery coordination.",
     },
   ],
 };
 
 //skills
 const skills = {
-  title: "My skills",
+  title: "Core capabilities",
   description:
-    "illustratorやphotoshopでのデザインから現在はFigmaを用いたUI/UXデザイン、フロントエンド開発をメインにやNode.jsを用いたAPIなどの実装など幅広く行っています。",
-  descriptionEn:
-    "From design with illustrator and photoshop to UI/UX design using Figma, I am mainly engaged in front-end development and implement APIs using Node.js.",
+    "TypeScript is my primary implementation language across React and Next.js frontends and Node.js backends. I also work with AWS Lambda, APIs, asynchronous jobs, MySQL, external integrations, and Figma—choosing technology around the product rather than treating the stack as the headline.",
   items: [
+    { name: "Applied AI / LLM Integration", icon: <SiOpenai /> },
     { name: "JavaScript", icon: <FaJs /> },
     { name: "TypeScript", icon: <SiTypescript /> },
-    { name: "HTML 3", icon: <FaHtml5 /> },
+    { name: "HTML 5", icon: <FaHtml5 /> },
     { name: "CSS 3", icon: <FaCss3 /> },
     { name: "React", icon: <FaReact /> },
     { name: "Node.js", icon: <FaNodeJs /> },
@@ -119,7 +122,7 @@ const Resume: FC = () => {
       <title>Resume | Sixth Project Portfolio</title>
       <meta
         name="description"
-        content="I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development."
+        content="More than 14 years across product engineering, B2B SaaS, applied AI automation, front-end development, and product design."
       />
       <div className="container mx-auto">
         <Tabs
@@ -137,9 +140,6 @@ const Resume: FC = () => {
               <div className="flex flex-col gap-8 text-center xl:text-left">
                 <h3 className="text-4xl font-bold">{experience.title}</h3>
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {experience.descriptionEn}
-                </p>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {experience.description}
                 </p>
                 <ScrollArea className="h-[400px]">
@@ -147,7 +147,7 @@ const Resume: FC = () => {
                     {experience.items.map((item, index) => (
                       <li
                         key={index}
-                        className="flex flex-col gap-1 text-white/80 h-[200px] py-6 px-10 rounded-xl bg-[#27272c] justify-center
+                        className="flex flex-col gap-2 text-white/80 min-h-[260px] py-6 px-8 rounded-xl bg-[#27272c] justify-center
                         items-center lg:items-start"
                       >
                         <p className="text-accent">{item.period}</p>
@@ -158,6 +158,9 @@ const Resume: FC = () => {
                           <span className="w-[6px] h-[6px] rounded-full bg-accent"></span>
                           <p className="text-white/60">{item.company}</p>
                         </div>
+                        <p className="mt-2 text-sm leading-relaxed text-white/50 text-center lg:text-left">
+                          {item.summary}
+                        </p>
                       </li>
                     ))}
                   </ul>
@@ -168,9 +171,6 @@ const Resume: FC = () => {
               <div className="flex flex-col gap-8">
                 <div className="flex flex-col gap-8 text-center xl:text-left">
                   <h3 className="text-4xl font-bold">{skills.title}</h3>
-                  <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                    {skills.descriptionEn}
-                  </p>
                   <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                     {skills.description}
                   </p>
@@ -203,9 +203,6 @@ const Resume: FC = () => {
             >
               <div className="flex flex-col gap-8">
                 <h3 className="text-4xl font-bold">{about.title}</h3>
-                <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
-                  {about.descriptionEn}
-                </p>
                 <p className="max-w-[600px] text-white/60 mx-auto xl:mx-0">
                   {about.description}
                 </p>

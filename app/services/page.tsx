@@ -2,45 +2,37 @@
 
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { BsArrowDownRight } from "react-icons/bs";
 import type { FC } from "react";
+import { BsArrowDownRight } from "react-icons/bs";
 
 const services = [
   {
     num: "01",
-    title: "Web Development",
+    title: "Product Engineering",
     description:
-      "フロントエンドをメインで行っています。TypeScript, React, Next.js, Tailwind CSS, Firebase, Vercel などを使っています。",
-    descriptionEn:
-      "I mainly do front-end development. I use TypeScript, React, Next.js, Tailwind CSS, Firebase, Vercel, etc.",
-    href: "#",
+      "I design, build, and operate customer-facing B2B SaaS—from website builders and booking platforms to APIs, integrations, and asynchronous workflows. I work across the frontend and TypeScript backend with production ownership in mind.",
+    href: "/work",
   },
   {
     num: "02",
-    title: "UI/UX Design",
+    title: "Applied AI & Automation",
     description:
-      "もともとWebデザイナーとしてキャリアをスタートしました。現在はFigmaを使ってデザインを行っています。",
-    descriptionEn:
-      "I started my career as a web designer. I currently design using Figma.",
-    href: "#",
+      "I turn repetitive manual and outsourced operations into production-ready AI workflows. My work covers approval paths, exception handling, quality controls, observability, and human escalation—not just prototypes.",
+    href: "/work",
   },
   {
     num: "03",
-    title: "Web Design",
+    title: "Technical Leadership",
     description:
-      "現在はFigmaをメインですが、過去にはAdobe XD, Photoshop, Illustrator などを使ってデザインを行っていました。",
-    descriptionEn:
-      "I currently use Figma, but in the past I designed using Adobe XD, Photoshop, Illustrator, etc.",
-    href: "#",
+      "I lead projects from problem framing and requirements through architecture, implementation, deployment, and operational adoption. I connect product decisions, engineering execution, and day-to-day business operations.",
+    href: "/resume",
   },
   {
     num: "04",
-    title: "Project Management",
+    title: "Product Design & UX",
     description:
-      "グロースエンジニアとして、プロジェクトマネジメントも行っています。Notion, Slack, GitHub などを使っています。",
-    descriptionEn:
-      "As a growth engineer, I also do project management. I use Notion, Slack, GitHub, etc.",
-    href: "#",
+      "My background in web and UI design helps me shape clear user flows and interfaces that are both usable and feasible to build. I help teams turn ambiguity into practical, shippable product decisions.",
+    href: "/work",
   },
 ];
 
@@ -50,9 +42,21 @@ const Services: FC = () => {
       <title>Services | Sixth Project Portfolio</title>
       <meta
         name="description"
-        content="I mainly focus on front-end development with an emphasis on UI/UX. I strive to incorporate the latest technologies in my development."
+        content="Product engineering, applied AI automation, technical leadership, and product design for B2B SaaS teams."
       />
       <div className="container mx-auto">
+        <div className="max-w-[760px] mb-14 text-center md:text-left">
+          <span className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
+            How I help
+          </span>
+          <h1 className="mt-4 text-5xl xl:text-7xl">
+            From product problem to production outcome.
+          </h1>
+          <p className="mt-6 text-lg text-white/60">
+            I work across product, design, and engineering to ship software that
+            improves real customer and operational workflows.
+          </p>
+        </div>
         <motion.div
           initial={{ opacity: 0 }}
           animate={{
@@ -77,6 +81,7 @@ const Services: FC = () => {
                 <Link
                   className="w-[70px] h-[70px] rounded-full bg-white group-hover:bg-accent transition-all duration-500 flex justify-center items-center hover:-rotate-45"
                   href={service.href}
+                  aria-label={`Explore ${service.title}`}
                 >
                   <BsArrowDownRight className="text-primary text-3xl" />
                 </Link>
@@ -84,7 +89,6 @@ const Services: FC = () => {
               <h2 className="text-[42px] font-bold leading-none text-white group-hover:text-accent transition-all duration-500">
                 {service.title}
               </h2>
-              <p className="text-white/60">{service.descriptionEn}</p>
               <p className="text-white/60">{service.description}</p>
               <div className="border-b border-white/20 w-full"></div>
             </div>
