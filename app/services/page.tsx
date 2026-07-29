@@ -39,11 +39,6 @@ const services = [
 const Services: FC = () => {
   return (
     <section>
-      <title>Services | Sixth Project Portfolio</title>
-      <meta
-        name="description"
-        content="Product engineering, applied AI automation, technical leadership, and product design for B2B SaaS teams."
-      />
       <div className="container mx-auto">
         <div className="max-w-[760px] mb-14 text-center md:text-left">
           <span className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">

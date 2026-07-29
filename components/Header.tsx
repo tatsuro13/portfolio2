@@ -1,8 +1,9 @@
 import Nav from "@/components/Nav";
+import TrackedLink from "@/components/TrackedLink";
 import Link from "next/link";
 import type { FC } from "react";
 import MobileNav from "./MobileNav";
-import { Button } from "./ui/button";
+import { buttonVariants } from "./ui/button";
 
 const Header: FC = () => {
   return (
@@ -17,9 +18,17 @@ const Header: FC = () => {
         {/* Desktop nav */}
         <div className="hidden xl:flex items-center gap-8">
           <Nav />
-          <Link href={"/contact"}>
-            <Button>Discuss a project</Button>
-          </Link>
+          <TrackedLink
+            href="/contact"
+            eventName="cta_click"
+            eventParams={{
+              cta_name: "discuss_project",
+              cta_location: "header",
+            }}
+            className={buttonVariants()}
+          >
+            Discuss a project
+          </TrackedLink>
         </div>
 
         {/* Mobile nav */}

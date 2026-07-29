@@ -1,4 +1,3 @@
-import Link from "next/link";
 import type { FC } from "react";
 import { BsArrowUpRight } from "react-icons/bs";
 import { MdOutlineEmail } from "react-icons/md";
@@ -7,7 +6,8 @@ import HeroIdentity from "@/components/HeroIdentity";
 import Photo from "@/components/Photo";
 import Social from "@/components/Social";
 import Stats from "@/components/Stats";
-import { Button } from "@/components/ui/button";
+import TrackedLink from "@/components/TrackedLink";
+import { buttonVariants } from "@/components/ui/button";
 
 const Home: FC = () => {
   return (
@@ -36,22 +36,34 @@ const Home: FC = () => {
               </span>
             </div>
             <div className="my-4 flex flex-col gap-5 items-center sm:flex-row xl:justify-start">
-              <Link href="/work">
-                <Button size="lg" className="flex items-center gap-2 uppercase">
-                  <span>View selected work</span>
-                  <BsArrowUpRight className="text-xl" />
-                </Button>
-              </Link>
-              <Link href="/contact">
-                <Button
-                  variant="outline"
-                  size="lg"
-                  className="uppercase flex items-center gap-2"
-                >
-                  <span>Discuss a project</span>
-                  <MdOutlineEmail className="text-xl" />
-                </Button>
-              </Link>
+              <TrackedLink
+                href="/work"
+                eventName="cta_click"
+                eventParams={{ cta_name: "view_work", cta_location: "home" }}
+                className={buttonVariants({
+                  size: "lg",
+                  className: "flex items-center gap-2 uppercase",
+                })}
+              >
+                <span>View selected work</span>
+                <BsArrowUpRight className="text-xl" />
+              </TrackedLink>
+              <TrackedLink
+                href="/contact"
+                eventName="cta_click"
+                eventParams={{
+                  cta_name: "discuss_project",
+                  cta_location: "home",
+                }}
+                className={buttonVariants({
+                  variant: "outline",
+                  size: "lg",
+                  className: "flex items-center gap-2 uppercase",
+                })}
+              >
+                <span>Discuss a project</span>
+                <MdOutlineEmail className="text-xl" />
+              </TrackedLink>
               <div className="sm:ml-2 mb-8 sm:mb-0">
                 <Social
                   containerStyles="flex gap-6"

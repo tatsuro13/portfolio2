@@ -21,6 +21,9 @@ export const metadata: Metadata = {
   },
   description:
     "Senior product engineer building B2B SaaS and applied AI workflows with TypeScript, React, and Node.js. From product discovery through production rollout.",
+  alternates: {
+    canonical: "/",
+  },
   keywords: [
     "Senior Product Engineer",
     "B2B SaaS",
@@ -38,12 +41,21 @@ export const metadata: Metadata = {
     title: "Senior Product Engineer | Sixth Project",
     description:
       "Building B2B SaaS products and applied AI workflows from discovery through production rollout.",
+    images: [
+      {
+        url: "/opengraph-image",
+        width: 1200,
+        height: 630,
+        alt: "Sixth Project — Senior Product Engineer",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Senior Product Engineer | Sixth Project",
     description:
       "Building B2B SaaS products and applied AI workflows from discovery through production rollout.",
+    images: ["/opengraph-image"],
   },
 };
 
@@ -57,8 +69,8 @@ export default function RootLayout({
       <body className={`${hind.variable} antialiased`}>
         <Header />
         <PageTransition>{children}</PageTransition>
+        {process.env.GAID ? <GoogleAnalytics gaId={process.env.GAID} /> : null}
       </body>
-      <GoogleAnalytics gaId={process.env.GAID || "default-ga-id"} />
     </html>
   );
 }

@@ -12,9 +12,10 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { Textarea } from "@/components/ui/textarea";
+import { sendGAEvent } from "@next/third-parties/google";
 import { motion } from "framer-motion";
 import type { FC } from "react";
-import { FormEvent, useState } from "react";
+import { FormEvent, useRef, useState } from "react";
 import { FaClock, FaGlobe, FaMapMarker } from "react-icons/fa";
 
 const info = [
@@ -35,39 +36,38 @@ const info = [
   },
 ];
 
-interface FormData {
-  firstName: string;
-  lastName: string;
+type FormData = {
+  name: string;
   email: string;
-  phone: string;
+  company: string;
   service: string;
   message: string;
-}
+  website: string;
+};
 
-interface AlertMessage {
+type AlertMessage = {
   type: "success" | "error" | null;
   message: string;
-}
+};
 
 const Contact: FC = () => {
+  const hasTrackedFormStart = useRef(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alertMessage, setAlertMessage] = useState<AlertMessage>({
     type: null,
     message: "",
   });
   const [formData, setFormData] = useState<FormData>({
-    firstName: "",
-    lastName: "",
+    name: "",
     email: "",
-    phone: "",
+    company: "",
     service: "",
     message: "",
+    website: "",
   });
 
   const handleChange = (
-    e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-    >,
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
   ) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
@@ -83,11 +83,20 @@ const Contact: FC = () => {
     }));
   };
 
+  const handleFormFocus = () => {
+    if (hasTrackedFormStart.current) {
+      return;
+    }
+
+    hasTrackedFormStart.current = true;
+    sendGAEvent("event", "contact_form_start");
+  };
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     // 簡易バリデーション
-    if (!formData.firstName || !formData.email || !formData.message) {
+    if (!formData.name || !formData.email || !formData.message) {
       setAlertMessage({
         type: "error",
         message: "Name, email, and message are required.",
@@ -112,24 +121,27 @@ const Contact: FC = () => {
       const data = await response.json();
 
       if (response.ok) {
+        sendGAEvent("event", "contact_form_submit_success", {
+          project_type: formData.service || "not_selected",
+        });
         setAlertMessage({
           type: "success",
           message: "Thank you. Your message has been sent.",
         });
 
-        // フォームをリセット
         setFormData({
-          firstName: "",
-          lastName: "",
+          name: "",
           email: "",
-          phone: "",
+          company: "",
           service: "",
           message: "",
+          website: "",
         });
       } else {
         throw new Error(data.error || "Your message could not be sent.");
       }
     } catch (error) {
+      sendGAEvent("event", "contact_form_submit_error");
       setAlertMessage({
         type: "error",
         message:
@@ -151,23 +163,20 @@ const Contact: FC = () => {
       }}
       className="py-6"
     >
-      <title>Contact | Sixth Project Portfolio</title>
-      <meta
-        name="description"
-        content="Discuss a remote B2B SaaS, TypeScript product engineering, or applied AI automation project with Sixth Project."
-      />
       <div className="container mx-auto">
         <div className="flex flex-col xl:flex-row gap-8">
           <div className="xl:w-[54%] order-2 xl:order-none">
             <form
-              className="flex flex-col gap-6 p-10 bg-[#27272c] rounded-e-xl"
+              className="relative flex flex-col gap-6 rounded-xl bg-[#27272c] p-6 sm:p-10"
               onSubmit={handleSubmit}
+              onFocus={handleFormFocus}
             >
               <h3 className="text-4xl text-accent">
                 Have a workflow to improve?
               </h3>
               {alertMessage.type && (
                 <div
+                  role="status"
                   className={`p-4 mb-4 rounded-md ${
                     alertMessage.type === "success"
                       ? "bg-green-100 text-green-800 border border-green-200"
@@ -183,66 +192,114 @@ const Contact: FC = () => {
                 work in B2B SaaS, TypeScript product development, and applied AI
                 automation.
               </p>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div
+                className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden"
+                aria-hidden="true"
+              >
+                <label htmlFor="website">Website</label>
                 <Input
-                  name="firstName"
-                  value={formData.firstName}
+                  id="website"
+                  name="website"
+                  value={formData.website}
                   onChange={handleChange}
-                  placeholder="First name"
-                  required
-                />
-                <Input
-                  name="lastName"
-                  value={formData.lastName}
-                  onChange={handleChange}
-                  placeholder="Last name"
-                />
-                <Input
-                  name="email"
-                  type="email"
-                  value={formData.email}
-                  onChange={handleChange}
-                  placeholder="Work email"
-                  required
-                />
-                <Input
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleChange}
-                  placeholder="Phone (optional)"
+                  tabIndex={-1}
+                  autoComplete="off"
                 />
               </div>
-              <Select
-                value={formData.service}
-                onValueChange={handleServiceChange}
-              >
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Select a Service" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectGroup>
-                    <SelectLabel>Select a Service</SelectLabel>
-                    <SelectItem value="Product Engineering">
-                      Product Engineering
-                    </SelectItem>
-                    <SelectItem value="Applied AI & Automation">
-                      Applied AI & Automation
-                    </SelectItem>
-                    <SelectItem value="Technical Review & Advisory">
-                      Technical Review & Advisory
-                    </SelectItem>
-                    <SelectItem value="Other">Other</SelectItem>
-                  </SelectGroup>
-                </SelectContent>
-              </Select>
-              <Textarea
-                name="message"
-                value={formData.message}
-                onChange={handleChange}
-                className="h-[200px]"
-                placeholder="Type your message here."
-                required
-              />
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <label className="flex flex-col gap-2" htmlFor="name">
+                  <span className="text-sm font-medium text-white/75">
+                    Name <span className="text-accent">*</span>
+                  </span>
+                  <Input
+                    id="name"
+                    name="name"
+                    value={formData.name}
+                    onChange={handleChange}
+                    placeholder="Your name"
+                    autoComplete="name"
+                    maxLength={100}
+                    required
+                  />
+                </label>
+                <label className="flex flex-col gap-2" htmlFor="email">
+                  <span className="text-sm font-medium text-white/75">
+                    Work email <span className="text-accent">*</span>
+                  </span>
+                  <Input
+                    id="email"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    placeholder="you@company.com"
+                    autoComplete="email"
+                    maxLength={254}
+                    required
+                  />
+                </label>
+                <label
+                  className="flex flex-col gap-2 md:col-span-2"
+                  htmlFor="company"
+                >
+                  <span className="text-sm font-medium text-white/75">
+                    Company or organization
+                    <span className="ml-2 text-white/35">Optional</span>
+                  </span>
+                  <Input
+                    id="company"
+                    name="company"
+                    value={formData.company}
+                    onChange={handleChange}
+                    placeholder="Company name"
+                    autoComplete="organization"
+                    maxLength={120}
+                  />
+                </label>
+              </div>
+              <div className="flex flex-col gap-2">
+                <span className="text-sm font-medium text-white/75">
+                  Project type
+                </span>
+                <Select
+                  value={formData.service}
+                  onValueChange={handleServiceChange}
+                >
+                  <SelectTrigger className="w-full">
+                    <SelectValue placeholder="Select a project type" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectGroup>
+                      <SelectLabel>Project type</SelectLabel>
+                      <SelectItem value="Product Engineering">
+                        Product Engineering
+                      </SelectItem>
+                      <SelectItem value="Applied AI & Automation">
+                        Applied AI & Automation
+                      </SelectItem>
+                      <SelectItem value="Technical Review & Advisory">
+                        Technical Review & Advisory
+                      </SelectItem>
+                      <SelectItem value="Other">Other</SelectItem>
+                    </SelectGroup>
+                  </SelectContent>
+                </Select>
+              </div>
+              <label className="flex flex-col gap-2" htmlFor="message">
+                <span className="text-sm font-medium text-white/75">
+                  Project context <span className="text-accent">*</span>
+                </span>
+                <Textarea
+                  id="message"
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  className="h-[200px]"
+                  placeholder="What are you building or trying to improve?"
+                  maxLength={5000}
+                  required
+                />
+              </label>
               <Button
                 type="submit"
                 size="md"

@@ -1,16 +1,9 @@
 "use client";
 
 import { ScrollArea } from "@/components/ui/scroll-area";
-//components
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip";
 import { motion } from "framer-motion";
-import type { FC } from "react";
+import type { FC, ReactNode } from "react";
 import {
   FaCss3,
   FaFigma,
@@ -88,25 +81,54 @@ const experience = {
 const skills = {
   title: "Core capabilities",
   description:
-    "TypeScript is my primary implementation language across React and Next.js frontends and Node.js backends. I also work with AWS Lambda, APIs, asynchronous jobs, MySQL, external integrations, and Figma—choosing technology around the product rather than treating the stack as the headline.",
-  items: [
+    "I design and ship applied AI and LLM-powered workflows inside real SaaS products. TypeScript is my primary implementation language across React and Next.js frontends, Node.js backends, APIs, asynchronous jobs, and AWS-based production systems.",
+  coreItems: [
     { name: "Applied AI / LLM Integration", icon: <SiOpenai /> },
-    { name: "JavaScript", icon: <FaJs /> },
     { name: "TypeScript", icon: <SiTypescript /> },
-    { name: "HTML 5", icon: <FaHtml5 /> },
-    { name: "CSS 3", icon: <FaCss3 /> },
     { name: "React", icon: <FaReact /> },
+    { name: "Next.js", icon: <SiNextdotjs /> },
     { name: "Node.js", icon: <FaNodeJs /> },
     { name: "AWS Lambda", icon: <SiAwslambda /> },
     { name: "MySQL", icon: <SiMysql /> },
-    { name: "Next.js", icon: <SiNextdotjs /> },
+    { name: "Figma", icon: <FaFigma /> },
+  ],
+  additionalItems: [
+    { name: "JavaScript", icon: <FaJs /> },
+    { name: "HTML 5", icon: <FaHtml5 /> },
+    { name: "CSS 3", icon: <FaCss3 /> },
     { name: "Tailwind CSS", icon: <SiTailwindcss /> },
     { name: "Ruby", icon: <SiRuby /> },
     { name: "Ruby on Rails", icon: <SiRubyonrails /> },
-    { name: "Figma", icon: <FaFigma /> },
     { name: "Adobe Illustrator", icon: <SiAdobeillustrator /> },
     { name: "Adobe Photoshop", icon: <SiAdobephotoshop /> },
   ],
+};
+
+type SkillGridProps = {
+  items: Array<{
+    name: string;
+    icon: ReactNode;
+  }>;
+};
+
+const SkillGrid: FC<SkillGridProps> = ({ items }) => {
+  return (
+    <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:gap-6">
+      {items.map((item) => (
+        <li
+          key={item.name}
+          className="group flex min-h-[150px] flex-col items-center justify-center gap-4 rounded-xl border border-transparent bg-[#232329] p-5 text-center transition-colors duration-300 hover:border-accent/40"
+        >
+          <div className="text-5xl transition-colors duration-300 group-hover:text-accent">
+            {item.icon}
+          </div>
+          <span className="text-sm font-medium leading-snug text-white/65 transition-colors duration-300 group-hover:text-white">
+            {item.name}
+          </span>
+        </li>
+      ))}
+    </ul>
+  );
 };
 
 const Resume: FC = () => {
@@ -119,11 +141,6 @@ const Resume: FC = () => {
       }}
       className="min-h-[80vh] flex items-center justify-center py-12 xl:py-0"
     >
-      <title>Resume | Sixth Project Portfolio</title>
-      <meta
-        name="description"
-        content="More than 14 years across product engineering, B2B SaaS, applied AI automation, front-end development, and product design."
-      />
       <div className="container mx-auto">
         <Tabs
           defaultValue="experience"
@@ -175,26 +192,20 @@ const Resume: FC = () => {
                     {skills.description}
                   </p>
                 </div>
-                <ScrollArea className="h-[400px]">
-                  <ul className="grid grid-cols-2 gap-4 sm:grid-cols-3 md:grid-cols-4 xl:gap-[30px]">
-                    {skills.items.map((item, index) => (
-                      <li key={index}>
-                        <TooltipProvider delayDuration={100}>
-                          <Tooltip>
-                            <TooltipTrigger className="w-full h-[150px] bg-[#232329] rounded-xl flex items-center justify-center group">
-                              <div className="text-6xl group-hover:text-accent transition-all divide-neutral-300">
-                                {item.icon}
-                              </div>
-                            </TooltipTrigger>
-                            <TooltipContent>
-                              <p className="capitalize">{item.name}</p>
-                            </TooltipContent>
-                          </Tooltip>
-                        </TooltipProvider>
-                      </li>
-                    ))}
-                  </ul>
-                </ScrollArea>
+                <div className="space-y-10">
+                  <section>
+                    <h4 className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-accent">
+                      Core stack
+                    </h4>
+                    <SkillGrid items={skills.coreItems} />
+                  </section>
+                  <section>
+                    <h4 className="mb-5 text-sm font-semibold uppercase tracking-[0.2em] text-white/45">
+                      Additional experience
+                    </h4>
+                    <SkillGrid items={skills.additionalItems} />
+                  </section>
+                </div>
               </div>
             </TabsContent>
             <TabsContent
