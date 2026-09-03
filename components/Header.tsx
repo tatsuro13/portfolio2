@@ -1,23 +1,33 @@
-import Nav from "@/components/Nav";
-import TrackedLink from "@/components/TrackedLink";
+"use client";
+
 import Link from "next/link";
 import type { FC } from "react";
+
+import { useLanguage } from "@/components/LanguageProvider";
+import LanguageSwitcher from "@/components/LanguageSwitcher";
+import Nav from "@/components/Nav";
+import TrackedLink from "@/components/TrackedLink";
 import MobileNav from "./MobileNav";
 import { buttonVariants } from "./ui/button";
 
 const Header: FC = () => {
+  const { locale } = useLanguage();
+
   return (
-    <header className="py-8 xl:py-12 text-white">
+    <header className="relative z-40 py-7 text-white xl:py-10">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href="/">
-          <h1 className="text-4xl font-semibold">
-            Sixth Project<span className="text-accent">.</span>
-          </h1>
+        <Link
+          href="/"
+          className="text-[28px] font-semibold leading-none tracking-[-0.02em] transition-opacity hover:opacity-75 sm:text-4xl"
+          aria-label={locale === "ja" ? "ホームへ" : "Go to home"}
+        >
+          Sixth Project<span className="text-accent">.</span>
         </Link>
 
         {/* Desktop nav */}
-        <div className="hidden xl:flex items-center gap-8">
+        <div className="hidden xl:flex items-center gap-7">
           <Nav />
+          <LanguageSwitcher compact />
           <TrackedLink
             href="/contact"
             eventName="cta_click"
@@ -27,12 +37,13 @@ const Header: FC = () => {
             }}
             className={buttonVariants()}
           >
-            Discuss a project
+            {locale === "ja" ? "相談する" : "Let’s talk"}
           </TrackedLink>
         </div>
 
         {/* Mobile nav */}
-        <div className="xl:hidden">
+        <div className="flex items-center gap-2 xl:hidden">
+          <LanguageSwitcher compact />
           <MobileNav />
         </div>
       </div>

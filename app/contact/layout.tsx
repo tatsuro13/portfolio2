@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 export const metadata: Metadata = {
   title: "Contact",
   description:
-    "Discuss a remote B2B SaaS, TypeScript product engineering, or applied AI automation project with Sixth Project.",
+    "Discuss a hybrid or remote B2B SaaS, TypeScript product engineering, or applied AI automation project with Sixth Project.",
   alternates: {
     canonical: "/contact",
   },

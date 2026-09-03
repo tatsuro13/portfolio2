@@ -1,9 +1,9 @@
 "use client";
 
-import * as React from "react";
-import * as SheetPrimitive from "@radix-ui/react-dialog";
-import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
+import * as SheetPrimitive from "@radix-ui/react-dialog";
+import { type VariantProps, cva } from "class-variance-authority";
+import * as React from "react";
 
 import { IoMdClose } from "react-icons/io";
 
@@ -67,7 +67,7 @@ const SheetContent = React.forwardRef<
       {children}
       <SheetPrimitive.Close className="absolute right-8 top-8 transition-opacity outline-none">
         <IoMdClose className="text-3xl text-accent" />
-        <span className="sr-only">Close</span>
+        <span className="sr-only">Close / 閉じる</span>
       </SheetPrimitive.Close>
     </SheetPrimitive.Content>
   </SheetPortal>

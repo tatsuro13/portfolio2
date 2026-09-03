@@ -1,40 +1,35 @@
 "use client";
 
 import type { FC } from "react";
-import { TypeAnimation } from "react-type-animation";
+
+import { useLanguage } from "@/components/LanguageProvider";
+
+const copy = {
+  en: {
+    role: "Product Engineer / Japan",
+    scope: "Discover — Design — Build — Operate",
+  },
+  ja: {
+    role: "Product Engineer / Japan",
+    scope: "構想 — 設計 — 実装 — 運用",
+  },
+} as const;
 
 const HeroIdentity: FC = () => {
+  const { locale } = useLanguage();
+  const text = copy[locale];
+
   return (
-    <div className="flex flex-col gap-2">
-      <p className="text-xl font-medium text-white/80">
-        <span className="sr-only">
-          Hello, I&apos;m Sixth Project, a senior product engineer.
-        </span>
-        <span aria-hidden="true">
-          Hello, I&apos;m{" "}
-          <TypeAnimation
-            className="inline-block min-w-[230px] text-left text-accent"
-            sequence={[
-              "Sixth Project.",
-              1600,
-              "a product engineer.",
-              1600,
-              "a SaaS builder.",
-              1600,
-              "an AI workflow builder.",
-              1600,
-              "a designer at heart.",
-              1600,
-            ]}
-            wrapper="span"
-            repeat={Number.POSITIVE_INFINITY}
-            speed={45}
-          />
-        </span>
+    <div className="flex flex-col gap-3">
+      <div className="flex items-center justify-center gap-3 xl:justify-start">
+        <span className="h-px w-8 bg-accent" aria-hidden="true" />
+        <p className="text-xs font-semibold uppercase tracking-[0.24em] text-accent sm:text-sm">
+          {text.role}
+        </p>
+      </div>
+      <p className="font-mono text-[11px] font-medium uppercase tracking-[0.14em] text-white/50 sm:text-xs">
+        {text.scope}
       </p>
-      <span className="text-xs font-semibold uppercase tracking-[0.24em] text-white/45">
-        Senior Product Engineer · Japan
-      </span>
     </div>
   );
 };

@@ -18,23 +18,92 @@ import type { FC } from "react";
 import { FormEvent, useRef, useState } from "react";
 import { FaClock, FaGlobe, FaMapMarker } from "react-icons/fa";
 
-const info = [
-  {
-    icon: <FaMapMarker />,
-    title: "Location",
-    description: "Chiba, Japan",
+import { useLanguage } from "@/components/LanguageProvider";
+
+const copy = {
+  en: {
+    heading: "Let’s make something useful.",
+    introduction:
+      "A product to shape, a workflow to untangle, or an AI idea that needs to survive production—I’d like to hear about it. Open to part-time and project-based work: hybrid in Japan, remote internationally.",
+    requiredError: "Name, email, and message are required.",
+    success: "Thank you. Your message has been sent.",
+    genericError: "Your message could not be sent. Please try again.",
+    fields: {
+      name: "Name",
+      namePlaceholder: "Your name",
+      email: "Work email",
+      company: "Company or organization",
+      companyPlaceholder: "Company name",
+      optional: "Optional",
+      projectType: "Project type",
+      projectPlaceholder: "Select a project type",
+      context: "Project context",
+      contextPlaceholder: "What are you building or trying to improve?",
+      submit: "Send message",
+      submitting: "Sending...",
+    },
+    info: [
+      { title: "Location", description: "Chiba, Japan" },
+      {
+        title: "Collaboration",
+        description: "Hybrid in Japan · Remote worldwide",
+      },
+      {
+        title: "Time zone",
+        description: "JST · European overlap available",
+      },
+    ],
   },
-  {
-    icon: <FaGlobe />,
-    title: "Collaboration",
-    description: "Remote · Async-first",
+  ja: {
+    heading: "使われるものを、一緒につくろう。",
+    introduction:
+      "形にしたいプロダクト、ほどきたい業務、プロトタイプで終わらせたくないAIがあれば、ぜひ聞かせてください。国内はハイブリッド、海外はリモートで、副業・プロジェクト単位のご相談を承ります。",
+    requiredError: "お名前、メールアドレス、ご相談内容を入力してください。",
+    success: "ありがとうございます。メッセージを送信しました。",
+    genericError: "送信できませんでした。時間をおいて再度お試しください。",
+    fields: {
+      name: "お名前",
+      namePlaceholder: "お名前を入力",
+      email: "メールアドレス",
+      company: "会社・組織名",
+      companyPlaceholder: "会社名を入力",
+      optional: "任意",
+      projectType: "ご相談の種類",
+      projectPlaceholder: "ご相談の種類を選択",
+      context: "ご相談内容",
+      contextPlaceholder: "つくりたいもの、改善したいことをお聞かせください",
+      submit: "メッセージを送る",
+      submitting: "送信中...",
+    },
+    info: [
+      { title: "拠点", description: "千葉県・日本" },
+      { title: "連携方法", description: "国内ハイブリッド・海外リモート" },
+      { title: "タイムゾーン", description: "日本標準時（JST）" },
+    ],
   },
-  {
-    icon: <FaClock />,
-    title: "Time zone",
-    description: "JST · European overlap available",
-  },
+} as const;
+
+const infoIcons = [
+  <FaMapMarker key="location" />,
+  <FaGlobe key="remote" />,
+  <FaClock key="time" />,
 ];
+
+const serviceOptions = [
+  {
+    value: "Product Engineering",
+    label: { en: "Product Engineering", ja: "プロダクト開発" },
+  },
+  {
+    value: "Applied AI & Automation",
+    label: { en: "Applied AI & Automation", ja: "AI活用・業務自動化" },
+  },
+  {
+    value: "Technical Review & Advisory",
+    label: { en: "Technical Review & Advisory", ja: "技術レビュー・相談" },
+  },
+  { value: "Other", label: { en: "Other", ja: "その他" } },
+] as const;
 
 type FormData = {
   name: string;
@@ -51,6 +120,8 @@ type AlertMessage = {
 };
 
 const Contact: FC = () => {
+  const { locale } = useLanguage();
+  const text = copy[locale];
   const hasTrackedFormStart = useRef(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [alertMessage, setAlertMessage] = useState<AlertMessage>({
@@ -99,7 +170,7 @@ const Contact: FC = () => {
     if (!formData.name || !formData.email || !formData.message) {
       setAlertMessage({
         type: "error",
-        message: "Name, email, and message are required.",
+        message: text.requiredError,
       });
       return;
     }
@@ -126,7 +197,7 @@ const Contact: FC = () => {
         });
         setAlertMessage({
           type: "success",
-          message: "Thank you. Your message has been sent.",
+          message: text.success,
         });
 
         setFormData({
@@ -138,16 +209,15 @@ const Contact: FC = () => {
           website: "",
         });
       } else {
-        throw new Error(data.error || "Your message could not be sent.");
+        throw new Error(
+          locale === "ja" ? text.genericError : data.error || text.genericError,
+        );
       }
     } catch (error) {
       sendGAEvent("event", "contact_form_submit_error");
       setAlertMessage({
         type: "error",
-        message:
-          error instanceof Error
-            ? error.message
-            : "Your message could not be sent.",
+        message: error instanceof Error ? error.message : text.genericError,
       });
     } finally {
       setIsSubmitting(false);
@@ -171,12 +241,11 @@ const Contact: FC = () => {
               onSubmit={handleSubmit}
               onFocus={handleFormFocus}
             >
-              <h3 className="text-4xl text-accent">
-                Have a workflow to improve?
-              </h3>
+              <h1 className="text-4xl text-accent">{text.heading}</h1>
               {alertMessage.type && (
                 <div
                   role="status"
+                  aria-live="polite"
                   className={`p-4 mb-4 rounded-md ${
                     alertMessage.type === "success"
                       ? "bg-green-100 text-green-800 border border-green-200"
@@ -186,12 +255,7 @@ const Contact: FC = () => {
                   {alertMessage.message}
                 </div>
               )}
-              <p className="text-white/60">
-                Have a SaaS feature or operational workflow that needs to reach
-                production? I&apos;m open to part-time and project-based remote
-                work in B2B SaaS, TypeScript product development, and applied AI
-                automation.
-              </p>
+              <p className="text-white/60">{text.introduction}</p>
               <div
                 className="absolute -left-[10000px] top-auto h-px w-px overflow-hidden"
                 aria-hidden="true"
@@ -209,14 +273,14 @@ const Contact: FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <label className="flex flex-col gap-2" htmlFor="name">
                   <span className="text-sm font-medium text-white/75">
-                    Name <span className="text-accent">*</span>
+                    {text.fields.name} <span className="text-accent">*</span>
                   </span>
                   <Input
                     id="name"
                     name="name"
                     value={formData.name}
                     onChange={handleChange}
-                    placeholder="Your name"
+                    placeholder={text.fields.namePlaceholder}
                     autoComplete="name"
                     maxLength={100}
                     required
@@ -224,7 +288,7 @@ const Contact: FC = () => {
                 </label>
                 <label className="flex flex-col gap-2" htmlFor="email">
                   <span className="text-sm font-medium text-white/75">
-                    Work email <span className="text-accent">*</span>
+                    {text.fields.email} <span className="text-accent">*</span>
                   </span>
                   <Input
                     id="email"
@@ -243,15 +307,17 @@ const Contact: FC = () => {
                   htmlFor="company"
                 >
                   <span className="text-sm font-medium text-white/75">
-                    Company or organization
-                    <span className="ml-2 text-white/35">Optional</span>
+                    {text.fields.company}
+                    <span className="ml-2 text-white/35">
+                      {text.fields.optional}
+                    </span>
                   </span>
                   <Input
                     id="company"
                     name="company"
                     value={formData.company}
                     onChange={handleChange}
-                    placeholder="Company name"
+                    placeholder={text.fields.companyPlaceholder}
                     autoComplete="organization"
                     maxLength={120}
                   />
@@ -259,35 +325,30 @@ const Contact: FC = () => {
               </div>
               <div className="flex flex-col gap-2">
                 <span className="text-sm font-medium text-white/75">
-                  Project type
+                  {text.fields.projectType}
                 </span>
                 <Select
                   value={formData.service}
                   onValueChange={handleServiceChange}
                 >
                   <SelectTrigger className="w-full">
-                    <SelectValue placeholder="Select a project type" />
+                    <SelectValue placeholder={text.fields.projectPlaceholder} />
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      <SelectLabel>Project type</SelectLabel>
-                      <SelectItem value="Product Engineering">
-                        Product Engineering
-                      </SelectItem>
-                      <SelectItem value="Applied AI & Automation">
-                        Applied AI & Automation
-                      </SelectItem>
-                      <SelectItem value="Technical Review & Advisory">
-                        Technical Review & Advisory
-                      </SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
+                      <SelectLabel>{text.fields.projectType}</SelectLabel>
+                      {serviceOptions.map((option) => (
+                        <SelectItem key={option.value} value={option.value}>
+                          {option.label[locale]}
+                        </SelectItem>
+                      ))}
                     </SelectGroup>
                   </SelectContent>
                 </Select>
               </div>
               <label className="flex flex-col gap-2" htmlFor="message">
                 <span className="text-sm font-medium text-white/75">
-                  Project context <span className="text-accent">*</span>
+                  {text.fields.context} <span className="text-accent">*</span>
                 </span>
                 <Textarea
                   id="message"
@@ -295,7 +356,7 @@ const Contact: FC = () => {
                   value={formData.message}
                   onChange={handleChange}
                   className="h-[200px]"
-                  placeholder="What are you building or trying to improve?"
+                  placeholder={text.fields.contextPlaceholder}
                   maxLength={5000}
                   required
                 />
@@ -306,16 +367,16 @@ const Contact: FC = () => {
                 className="max-w-40"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Sending..." : "Send Message"}
+                {isSubmitting ? text.fields.submitting : text.fields.submit}
               </Button>
             </form>
           </div>
           <div className="flex-1 flex items-center xl:justify-center order-1 xl:order-none mb-8 xl:mb-0">
             <ul className="flex flex-col gap-10">
-              {info.map((item, index) => (
-                <li key={index} className="flex gap-6 items-center">
+              {text.info.map((item, index) => (
+                <li key={item.title} className="flex gap-6 items-center">
                   <div className="w-12 h-12 xl:w-16 xl:h-16 flex items-center justify-center rounded-md bg-[#333338] text-accent">
-                    <div className="text-2xl">{item.icon}</div>
+                    <div className="text-2xl">{infoIcons[index]}</div>
                   </div>
                   <div className="flex-1">
                     <p className="text-white/60">{item.title}</p>

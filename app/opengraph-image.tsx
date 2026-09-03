@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Sixth Project — Senior Product Engineer";
+export const alt = "Sixth Project — Product Engineer";
 export const size = {
   width: 1200,
   height: 630,
@@ -35,7 +35,7 @@ export default function OpenGraphImage() {
           textTransform: "uppercase",
         }}
       >
-        Senior Product Engineer · Japan
+        Product Engineer · Japan
       </div>
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div
@@ -48,7 +48,7 @@ export default function OpenGraphImage() {
             maxWidth: 1000,
           }}
         >
-          Building B2B SaaS and applied AI that ships.
+          Think in products. Build in code.
         </div>
         <div
           style={{
@@ -58,7 +58,7 @@ export default function OpenGraphImage() {
             marginTop: 32,
           }}
         >
-          TypeScript · Product Engineering · Production Automation
+          Discover · Design · Build · Operate
         </div>
       </div>
       <div

@@ -2,12 +2,51 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import { type FC, useState } from "react";
+import { type FC, useMemo, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
+import { useLanguage } from "@/components/LanguageProvider";
 import WorkSliderBtns from "@/components/WorkSliderBtns";
+import { localizeWork } from "./work-locales";
 import type { FeaturedWork, WorkItem } from "./work-types";
+
+const copy = {
+  en: {
+    emptyTitle: "Selected work",
+    emptyDescription: "Project details are being prepared.",
+    eyebrow: "Selected work / 02",
+    title: ["Built for", "the real world."],
+    introduction:
+      "SaaS, AI, and digital experiences shaped around real people, real workflows, and real constraints.",
+    archive: "Build log / Archive",
+    archiveTitle: (count: number) => `${count} projects, and counting.`,
+    previous: "Previous project",
+    next: "Next project",
+  },
+  ja: {
+    emptyTitle: "実績紹介",
+    emptyDescription: "プロジェクトの詳細を準備中です。",
+    eyebrow: "Selected work / 02",
+    title: ["現場で動くものを、", "つくってきた。"],
+    introduction:
+      "人、業務、制約のある現実に向き合ってつくった、SaaS、AI、デジタル体験。",
+    archive: "Build log / Archive",
+    archiveTitle: (count: number) => `これまでのビルドログ、全${count}件。`,
+    previous: "前のプロジェクト",
+    next: "次のプロジェクト",
+  },
+} as const;
+
+const japaneseStackLabels: Record<string, string> = {
+  "UI/UX Design": "UI/UXデザイン",
+  "Web Design": "Webデザイン",
+  "Project Manager": "プロジェクトマネジメント",
+  "Product Owner": "プロダクトオーナー",
+};
+
+const getStackLabel = (stack: string, locale: "en" | "ja") =>
+  locale === "ja" ? (japaneseStackLabels[stack] ?? stack) : stack;
 
 type WorkShowcaseProps = {
   works: WorkItem[];
@@ -15,16 +54,24 @@ type WorkShowcaseProps = {
 };
 
 const WorkShowcase: FC<WorkShowcaseProps> = ({ works, featuredWorks }) => {
+  const { locale } = useLanguage();
+  const text = copy[locale];
   const [activeIndex, setActiveIndex] = useState(0);
-  const activeWork = works[activeIndex] ?? works[0];
+  const localizedWorks = useMemo(
+    () => works.map((work) => localizeWork(work, locale)),
+    [locale, works],
+  );
+  const localizedFeaturedWorks = useMemo(
+    () => featuredWorks.map((work) => localizeWork(work, locale)),
+    [featuredWorks, locale],
+  );
+  const activeWork = localizedWorks[activeIndex] ?? localizedWorks[0];
 
   if (!activeWork) {
     return (
       <section className="container mx-auto py-24 text-center">
-        <h1 className="text-5xl">Selected work</h1>
-        <p className="mt-6 text-white/60">
-          Project details are being prepared.
-        </p>
+        <h1 className="text-5xl">{text.emptyTitle}</h1>
+        <p className="mt-6 text-white/60">{text.emptyDescription}</p>
       </section>
     );
   }
@@ -41,19 +88,18 @@ const WorkShowcase: FC<WorkShowcaseProps> = ({ works, featuredWorks }) => {
       <section className="mb-24">
         <div className="mb-12 max-w-[760px]">
           <span className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-            Featured case studies
+            {text.eyebrow}
           </span>
           <h1 className="mt-4 text-5xl xl:text-7xl">
-            Three products. Three real operational problems.
+            {text.title[0]}
+            <br />
+            <span className="text-accent">{text.title[1]}</span>
           </h1>
-          <p className="mt-6 text-lg text-white/60">
-            A closer look at the SaaS and applied AI work that best represents
-            how I move from product problem to production outcome.
-          </p>
+          <p className="mt-6 text-lg text-white/60">{text.introduction}</p>
         </div>
 
         <div className="grid gap-8 lg:grid-cols-3">
-          {featuredWorks.map((work, index) => (
+          {localizedFeaturedWorks.map((work, index) => (
             <article
               key={work.id}
               className="group overflow-hidden rounded-2xl border border-white/10 bg-[#17171a]"
@@ -91,7 +137,7 @@ const WorkShowcase: FC<WorkShowcaseProps> = ({ works, featuredWorks }) => {
                         key={item}
                         className="rounded-full bg-white/5 px-3 py-1 text-xs text-white/55"
                       >
-                        {item}
+                        {getStackLabel(item, locale)}
                       </li>
                     ))}
                   </ul>
@@ -105,10 +151,10 @@ const WorkShowcase: FC<WorkShowcaseProps> = ({ works, featuredWorks }) => {
       <section>
         <div className="mb-10 max-w-[680px]">
           <span className="text-sm font-semibold uppercase tracking-[0.24em] text-accent">
-            Selected archive
+            {text.archive}
           </span>
           <h2 className="mt-4 text-4xl xl:text-5xl">
-            Explore all {works.length} projects.
+            {text.archiveTitle(localizedWorks.length)}
           </h2>
         </div>
 
@@ -125,7 +171,7 @@ const WorkShowcase: FC<WorkShowcaseProps> = ({ works, featuredWorks }) => {
               <ul className="flex flex-wrap gap-3">
                 {activeWork.stack.map((item) => (
                   <li key={item} className="text-lg text-accent">
-                    {item}
+                    {getStackLabel(item, locale)}
                   </li>
                 ))}
               </ul>
@@ -140,7 +186,7 @@ const WorkShowcase: FC<WorkShowcaseProps> = ({ works, featuredWorks }) => {
               className="mb-12 xl:h-[520px]"
               onSlideChange={(swiper) => setActiveIndex(swiper.activeIndex)}
             >
-              {works.map((work) => (
+              {localizedWorks.map((work) => (
                 <SwiperSlide key={work.id} className="w-full">
                   <div className="relative flex h-[360px] items-center justify-center bg-white/5 md:h-[460px]">
                     <div className="absolute inset-0 z-10 bg-black/10" />
@@ -158,6 +204,8 @@ const WorkShowcase: FC<WorkShowcaseProps> = ({ works, featuredWorks }) => {
                 containerStyles="flex gap-2 absolute right-0 bottom-[calc(50%_-_22px)] xl:bottom-0 z-20 w-full justify-between xl:w-max xl:justify-none"
                 btnStyles="bg-accent hover:bg-accent-dark text-primary transition-all duration-500 text-2xl w-[44px] h-[44px] flex items-center justify-center"
                 iconsStyles=""
+                previousLabel={text.previous}
+                nextLabel={text.next}
               />
             </Swiper>
           </div>

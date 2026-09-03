@@ -1,10 +1,12 @@
 import { GoogleAnalytics } from "@next/third-parties/google";
 import type { Metadata } from "next";
 import { Hind } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 
 //components
 import Header from "@/components/Header";
+import LanguageProvider from "@/components/LanguageProvider";
 import PageTransition from "@/components/PageTransition";
 
 const hind = Hind({
@@ -13,19 +15,24 @@ const hind = Hind({
   weight: ["400", "500", "600", "700"],
 });
 
+const geistMono = localFont({
+  src: "./fonts/GeistMonoVF.woff",
+  variable: "--font-geist-mono",
+});
+
 export const metadata: Metadata = {
   metadataBase: new URL("https://www.sixth-project.com"),
   title: {
-    default: "Senior Product Engineer | Sixth Project",
+    default: "Product Engineer | Sixth Project",
     template: "%s | Sixth Project",
   },
   description:
-    "Senior product engineer building B2B SaaS and applied AI workflows with TypeScript, React, and Node.js. From product discovery through production rollout.",
+    "Product engineer connecting discovery, UX, and full-stack development to build B2B SaaS and applied AI from first question through production.",
   alternates: {
     canonical: "/",
   },
   keywords: [
-    "Senior Product Engineer",
+    "Product Engineer",
     "B2B SaaS",
     "Applied AI",
     "TypeScript",
@@ -38,7 +45,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     url: "https://www.sixth-project.com",
     siteName: "Sixth Project",
-    title: "Senior Product Engineer | Sixth Project",
+    title: "Product Engineer | Sixth Project",
     description:
       "Building B2B SaaS products and applied AI workflows from discovery through production rollout.",
     images: [
@@ -46,13 +53,13 @@ export const metadata: Metadata = {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: "Sixth Project — Senior Product Engineer",
+        alt: "Sixth Project — Product Engineer",
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Senior Product Engineer | Sixth Project",
+    title: "Product Engineer | Sixth Project",
     description:
       "Building B2B SaaS products and applied AI workflows from discovery through production rollout.",
     images: ["/opengraph-image"],
@@ -66,10 +73,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${hind.variable} antialiased`}>
-        <Header />
-        <PageTransition>{children}</PageTransition>
-        {process.env.GAID ? <GoogleAnalytics gaId={process.env.GAID} /> : null}
+      <body className={`${hind.variable} ${geistMono.variable} antialiased`}>
+        <LanguageProvider>
+          <Header />
+          <PageTransition>{children}</PageTransition>
+          {process.env.GAID ? (
+            <GoogleAnalytics gaId={process.env.GAID} />
+          ) : null}
+        </LanguageProvider>
       </body>
     </html>
   );
